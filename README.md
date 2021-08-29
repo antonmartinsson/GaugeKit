@@ -37,7 +37,7 @@ let additionalInfo = GaugeAdditionalInfo(secondaryTitle: secondaryTitle, descrip
 Gauge(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green], additionalInfo: additionalInfo)
 ```
 
-If you leave any of the strings as nil, the Text instance responsible for displaying that string will not be rendered. So if you just want to create a gauge with a short description and no secondary title, this is also a valid init:
+If you leave any of the strings as nil, the Text instance responsible for displaying that string will not be rendered. So if you just want to create a gauge with a short description and no secondary title or body, this is also a valid init:
 
 ```swift
 let description = "This is a description."
