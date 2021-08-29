@@ -27,6 +27,27 @@ struct Gauge : View {
 	var colors: [Color]
 	var additionalInfo: GaugeAdditionalInfo?
 	
+	init(title: String?, value: Int?, colors: [Color]) {
+		self.title = title
+		self.value = value
+		self.colors = colors
+		self.additionalInfo = nil
+	}
+	
+	init(title: String?, value: Int?, colors: [Color], additionalInfo: GaugeAdditionalInfo) {
+		self.title = title
+		self.value = value
+		self.colors = colors
+		self.additionalInfo = additionalInfo
+	}
+	
+	init(colors: [Color]) {
+		self.title = nil
+		self.value = nil
+		self.colors = colors
+		self.additionalInfo = nil
+	}
+	
 	var body: some View {
 		ZStack {
 			ZStack {

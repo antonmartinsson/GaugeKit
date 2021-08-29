@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GaugeAdditionalInfo {
 	let description: String?
-	let title: String?
+	let secondaryTitle: String?
 	let body: String?
 }
 
@@ -30,7 +30,7 @@ struct GaugeBackView: View {
 				if let description = additionalInfo.description {
 					Text(description)
 				}
-				if let title = additionalInfo.title {
+				if let title = additionalInfo.secondaryTitle {
 					Text(title)
 						.font(.system(size: geometry.size.width / 5, weight: .bold))
 						.padding(.bottom, 4)
