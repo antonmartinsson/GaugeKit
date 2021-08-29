@@ -49,7 +49,7 @@ Gauge(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green], addit
 Finally, if you're feeling like you don't need any built in text elements, you could create a gauge without a title or value (or any additional info), like this:  
 
 ```swift
-Gauge(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green])
+Gauge(colors: [.red, .orange, .yellow, .green])
 ```
 
 ## Requirements
