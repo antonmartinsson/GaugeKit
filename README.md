@@ -18,6 +18,10 @@ let package = Package(
 )
 ```
 
+## Requirements
+
+GaugeKit is built with SwiftUI, and thus the minimum requirement to use it is that your project (or the views you're creating with it) has a deployment target set to iOS 13 or later. To use it in a UIKit project, use a [UIHostingController](https://developer.apple.com/documentation/swiftui/uihostingcontroller).
+
 ## Usage 
 
 To create a basic Gauge is as simple as providing it with a title, an integer value between 0 and 100, and the colors that you want the gauge display along itself. For example:
@@ -51,11 +55,3 @@ Finally, if you're feeling like you don't need any built in text elements, you c
 ```swift
 Gauge(colors: [.red, .orange, .yellow, .green])
 ```
-
-## Requirements
-
-GaugeKit is built with SwiftUI, and thus the minimum requirement to use it is that your project (or the views you're creating with it) has a deployment target set to iOS 13 or later.
-
-
-
-
