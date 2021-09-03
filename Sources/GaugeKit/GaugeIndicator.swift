@@ -59,8 +59,8 @@ private extension View {
 struct GaugeIndicator_Previews: PreviewProvider {
 	static var previews: some View {
 		Gauge(title: "BTC F&G",
-							value: 50,
-							colors: [.red, .orange, .yellow, .green])
+					value: 50,
+					colors: [.red, .orange, .yellow, .green])
 	}
 }
 
