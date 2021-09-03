@@ -51,7 +51,7 @@ struct GaugeBackView: View {
 struct GaugeBackView_Previews: PreviewProvider {
     static var previews: some View {
 			let info = GaugeAdditionalInfo(description: "Hejsan",
-																		 title: "Svejsan",
+																		 secondaryTitle: "Svejsan",
 																		 body: "Hörru")
 			
 			GaugeBackView(flipped: .constant(true),
