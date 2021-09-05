@@ -29,10 +29,6 @@ struct GaugeLabelStack: View {
 				Text("\(unwrappedValue)")
 					.font(.system(size: smallestDimension / 4))
 					.fontWeight(.bold)
-			} else {
-				Text("--")
-					.font(.system(size: smallestDimension / 4))
-					.fontWeight(.bold)
 			}
 			if let unwrappedTitle = title {
 				Text(unwrappedTitle)

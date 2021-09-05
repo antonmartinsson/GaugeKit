@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct GaugeAdditionalInfo {
-	let description: String?
-	let secondaryTitle: String?
+	let preTitle: String?
+	let largeTitle: String?
 	let body: String?
 }
 
@@ -27,10 +27,10 @@ struct GaugeBackView: View {
 	var body: some View {
 		GeometryReader { geometry in
 			VStack {
-				if let description = additionalInfo.description {
-					Text(description)
+				if let preTitle = additionalInfo.preTitle {
+					Text(preTitle)
 				}
-				if let title = additionalInfo.secondaryTitle {
+				if let title = additionalInfo.largeTitle {
 					Text(title)
 						.font(.system(size: geometry.size.width / 5, weight: .bold))
 						.padding(.bottom, 4)
@@ -50,8 +50,8 @@ struct GaugeBackView: View {
 
 struct GaugeBackView_Previews: PreviewProvider {
     static var previews: some View {
-			let info = GaugeAdditionalInfo(description: "Hejsan",
-																		 secondaryTitle: "Svejsan",
+			let info = GaugeAdditionalInfo(preTitle: "Hejsan",
+																		 largeTitle: "Svejsan",
 																		 body: "Hörru")
 			
 			GaugeBackView(flipped: .constant(true),
