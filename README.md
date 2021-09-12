@@ -30,6 +30,8 @@ To create a basic Gauge is as simple as providing it with a title, an integer va
 Gauge(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green])
 ```
 
+![alt text](https://i.imgur.com/iXPEpmm.png)
+
 Additionally, as space for additional information is quite limited within the gauge, you can initialize a gauge with some additional information using three different (optional) strings. This information will be revealed to the user with a quick flip animation when a tap on the gauge view is recorded.   
 
 ```swift
