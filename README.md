@@ -57,3 +57,7 @@ Finally, if you're feeling like you don't need any built in text elements, you c
 ```swift
 Gauge(colors: [.red, .orange, .yellow, .green])
 ```
+
+## Roadmap
+
+While I don't have many concrete plans for GaugeKit at the moment and plan to just fiddle with it from time to time, I would like to add the ability to customize the scale instead of it being fixed between 0 and 100. Until I find the time and inspiration to do so, keep your eyes peeled on this repo.
