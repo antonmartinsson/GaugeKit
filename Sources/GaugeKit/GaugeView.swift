@@ -26,6 +26,16 @@ public struct GaugeView : View {
 	public var colors: [Color]
 	public var additionalInfo: GaugeAdditionalInfo?
 	
+	public init(title: String? = nil,
+							value: Int? = nil,
+							colors: [Color],
+							additionalInfo: GaugeAdditionalInfo? = nil) {
+		self.title = title
+		self.value = value
+		self.colors = colors
+		self.additionalInfo = additionalInfo
+	}
+	
 	public var body: some View {
 		ZStack {
 			ZStack {
