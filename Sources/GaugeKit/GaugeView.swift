@@ -21,10 +21,10 @@ import SwiftUI
 public struct GaugeView : View {
 	@State private var flipped: Bool = false
 	
-	var title: String?
-	var value: Int?
-	var colors: [Color]
-	var additionalInfo: GaugeAdditionalInfo?
+	public var title: String?
+	public var value: Int?
+	public var colors: [Color]
+	public var additionalInfo: GaugeAdditionalInfo?
 	
 	public var body: some View {
 		ZStack {

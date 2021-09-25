@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct GaugeAdditionalInfo {
-	let preTitle: String?
-	let largeTitle: String?
-	let body: String?
+public struct GaugeAdditionalInfo {
+	public let preTitle: String?
+	public let largeTitle: String?
+	public let body: String?
 }
 
 /**
