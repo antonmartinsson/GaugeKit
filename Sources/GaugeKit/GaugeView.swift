@@ -26,7 +26,7 @@ public struct GaugeView : View {
 	var colors: [Color]
 	var additionalInfo: GaugeAdditionalInfo?
 	
-	var body: some View {
+	public var body: some View {
 		ZStack {
 			ZStack {
 				GaugeMeter(value: value, colors: colors)
