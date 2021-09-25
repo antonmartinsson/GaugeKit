@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-extension Gauge {
+extension GaugeView {
 	
 	/**
 	 Initializes a gauge with a string, a value and an array of colors to create a background gradient from.

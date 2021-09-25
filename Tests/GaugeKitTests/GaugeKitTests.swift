@@ -4,7 +4,7 @@ import XCTest
 final class GaugeKitTests: XCTestCase {
 	
 	func testBasicInit() {
-		let gauge = Gauge(title: "A title", value: 100, colors: [.red, .green])
+		let gauge = GaugeView(title: "A title", value: 100, colors: [.red, .green])
 		XCTAssertNotNil(gauge.title)
 		XCTAssertNotNil(gauge.value)
 		XCTAssertEqual(gauge.title, "A title")
@@ -13,14 +13,14 @@ final class GaugeKitTests: XCTestCase {
 	}
 	
 	func testNoTitleOrValue() {
-		let gauge = Gauge(colors: [.red, .green])
+		let gauge = GaugeView(colors: [.red, .green])
 		XCTAssertNil(gauge.title)
 		XCTAssertNil(gauge.value)
 		XCTAssertNotNil(gauge.colors)
 	}
 	
 	func testNoColors() {
-		let gauge = Gauge(colors: [])
+		let gauge = GaugeView(colors: [])
 		XCTAssertNil(gauge.title)
 		XCTAssertNil(gauge.value)
 		XCTAssertTrue(gauge.colors.isEmpty)
@@ -28,7 +28,7 @@ final class GaugeKitTests: XCTestCase {
 	
 	func testAdditionalInfo() {
 		let info = GaugeAdditionalInfo(preTitle: "This is a description", largeTitle: "Hej", body: "Blah")
-		let gauge = Gauge(title: "A title", value: 100, colors: [.red, .green], additionalInfo: info)
+		let gauge = GaugeView(title: "A title", value: 100, colors: [.red, .green], additionalInfo: info)
 		XCTAssertNotNil(gauge.title)
 		XCTAssertNotNil(gauge.value)
 		

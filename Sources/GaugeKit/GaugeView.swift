@@ -1,5 +1,5 @@
 //
-//  Gauge.swift
+//  GaugeView.swift
 //  CryptoCheck
 //
 //  Created by Anton Martinsson on 2021-06-19.
@@ -18,7 +18,7 @@ import SwiftUI
 		- colors: The colors that should be used in the gradient that wipes across the gauge.
 		- additionalInfo: A struct containing three (optional) strings to display when the user taps on the gauge.
  */
-struct Gauge : View {
+struct GaugeView : View {
 	@State private var flipped: Bool = false
 	
 	var title: String?
@@ -55,7 +55,7 @@ struct Gauge : View {
 
 struct Gauge_Previews: PreviewProvider {
 	static var previews: some View {
-		Gauge(title: "BTC F&G",
+		GaugeView(title: "BTC F&G",
 							value: 50,
 							colors: [.red, .orange, .yellow, .green])
 	}
