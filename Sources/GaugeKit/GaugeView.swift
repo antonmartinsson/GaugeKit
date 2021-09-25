@@ -18,7 +18,7 @@ import SwiftUI
 		- colors: The colors that should be used in the gradient that wipes across the gauge.
 		- additionalInfo: A struct containing three (optional) strings to display when the user taps on the gauge.
  */
-struct GaugeView : View {
+public struct GaugeView : View {
 	@State private var flipped: Bool = false
 	
 	var title: String?
