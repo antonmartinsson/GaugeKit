@@ -1,6 +1,6 @@
 # GaugeKit
 
-GaugeKit is a Swift package which enables easy, effortless creation of a gauge-like view ideal for visualizing a value between 0 and 100 in a gauge,
+GaugeKit is a Swift package which enables easy, effortless creation of a gauge-like view ideal for visualizing a value in a gauge,
 not too different from the native gauges used by Apple for some Apple Watch complications.
 
 ## Importing GaugeKit
@@ -24,13 +24,19 @@ GaugeKit is built with SwiftUI, and thus the minimum requirement to use it is th
 
 ## Usage 
 
-To create a basic Gauge is as simple as providing it with a title, an integer value between 0 and 100, and the colors that you want the gauge display along itself. For example:
+To create a basic Gauge is as simple as providing it with a title, an integer value, and the colors that you want the gauge display along itself.  For example:
 
 ```swift
 GaugeView(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green])
 ```
 
 ![alt text](https://i.imgur.com/iXPEpmm.png)
+
+A basic gauge like this will default to 100 for its max value. You can also explicitely set the max value of the gauge to a custom value. The following initialization will create a gauge that maxes out at 1000 instead of 100.  
+
+```swift
+GaugeView(title: "Speed", value: 100, maxValue: 1000, colors: [.red, .orange, .yellow, .green])
+```
 
 Additionally, as space for additional information is quite limited within the gauge, you can initialize a gauge with some additional information using three different (optional) strings. This information will be revealed to the user with a quick flip animation when a tap on the gauge view is recorded.   
 
@@ -60,4 +66,4 @@ GaugeView(colors: [.red, .orange, .yellow, .green])
 
 ## Roadmap
 
-While I don't have many concrete plans for GaugeKit at the moment and plan to just fiddle with it from time to time, I would like to add the ability to customize the scale instead of it being fixed between 0 and 100. Until I find the time and inspiration to do so, keep your eyes peeled on this repo.
+While I don't have many concrete plans for GaugeKit at the moment and plan to just fiddle with it from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here on GitHub.

@@ -22,9 +22,11 @@ public struct GaugeAdditionalInfo {
  */
 struct GaugeBackView: View {
 	@Binding var flipped: Bool
-	var additionalInfo: GaugeAdditionalInfo
+	let additionalInfo: GaugeAdditionalInfo
 	
 	var body: some View {
+		let flipAngle = Angle(degrees: flipped ? -180 : 0)
+		
 		GeometryReader { geometry in
 			VStack {
 				if let preTitle = additionalInfo.preTitle {
@@ -42,7 +44,7 @@ struct GaugeBackView: View {
 			.position(x: geometry.size.width / 2, y: geometry.size.height / 2)
 		}
 		.opacity(flipped ? 1 : 0)
-		.rotation3DEffect(Angle(degrees: flipped ? -180 : 0), axis: (x: 0, y: 1, z: 0))
+		.rotation3DEffect(flipAngle, axis: (x: 0, y: 1, z: 0))
 		.rotation3DEffect(Angle(degrees: 180), axis: (x: 0, y: 1, z: 0))
 	}
 }

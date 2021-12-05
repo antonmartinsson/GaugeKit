@@ -4,57 +4,61 @@
 //
 //  Created by Anton Martinsson on 2021-06-19.
 //
-//  A Gauge similar to the gauges used for some Apple Watch complication.
+//  A Gauge similar to the gauges used for some Apple Watch complications.
 
 import SwiftUI
 
 /**
- A view ideal for visualizing a value between 0 and 100 in a gauge,
+ A view ideal for visualizing a value between in a gauge,
  not too different from the native gauges used by Apple for some Apple Watch complications.
  
  - Parameters:
 		- title: A decriptive string value to display inside the gauge.
-		- value: An integer between 0 and 100 displayed inside the gauge, which also determines the position of the gauge's indicator.
+		- value: An integer displayed inside the gauge, which also determines the position of the gauge's indicator.
+		- maxValue: An integer value representing what the gauge should max out at. Defaults to nil if `value` is also nil, and to 100 if a `value` is set, but no explicit `maxValue`.
 		- colors: The colors that should be used in the gradient that wipes across the gauge.
 		- additionalInfo: A struct containing three (optional) strings to display when the user taps on the gauge.
  */
 public struct GaugeView : View {
 	@State private var flipped: Bool = false
 	
-	public var title: String?
-	public var value: Int?
-	public var colors: [Color]
-	public var additionalInfo: GaugeAdditionalInfo?
+	let title: String?
+	let value: Int?
+	let maxValue: Int?
+	let colors: [Color]
+	let additionalInfo: GaugeAdditionalInfo?
 	
 	public init(title: String? = nil,
 							value: Int? = nil,
+							maxValue: Int? = nil,
 							colors: [Color],
 							additionalInfo: GaugeAdditionalInfo? = nil) {
 		self.title = title
 		self.value = value
+		self.maxValue = maxValue
 		self.colors = colors
 		self.additionalInfo = additionalInfo
 	}
 	
 	public var body: some View {
+		let flipAngle = Angle(degrees: flipped ? 180 : 0)
+		
 		ZStack {
 			ZStack {
-				GaugeMeter(value: value, colors: colors)
+				GaugeMeter(value: value, maxValue: maxValue, colors: colors)
 				GeometryReader { geometry in
-					GaugeLabelStack(containerSize: geometry.size, value: value, title: title)
-						.position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+					GaugeLabelStack(geometry: geometry,	value: value, title: title)
 				}
 			}
-			.rotation3DEffect(Angle(degrees: flipped ? 180 : 0), axis: (x: 0, y: 1, z: 0))
+			.rotation3DEffect(flipAngle, axis: (x: 0, y: 1, z: 0))
 			.opacity(flipped ? 0.1 : 1)
 			
 			if let info = additionalInfo {
 				GaugeBackView(flipped: $flipped, additionalInfo: info)
 			}
 		}
-		
-		.if(additionalInfo != nil) { content in
-			content.onTapGesture {
+		.onTapGesture {
+			if additionalInfo != nil {
 				withAnimation {
 					self.flipped.toggle()
 				}
@@ -65,8 +69,6 @@ public struct GaugeView : View {
 
 struct Gauge_Previews: PreviewProvider {
 	static var previews: some View {
-		GaugeView(title: "BTC F&G",
-							value: 50,
-							colors: [.red, .orange, .yellow, .green])
+		GaugeView(value: 50, colors: [.red, .orange, .yellow, .green])
 	}
 }
