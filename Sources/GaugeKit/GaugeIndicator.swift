@@ -11,8 +11,8 @@ import SwiftUI
  The small circular indicator placed on top of the gauge to visualize it's current value.
  
  - Parameters:
-	- angle: The angle at which to place the indicator on top of the gauge.
-	- size: The size of the gauge being displayed.
+		- angle: The angle at which to place the indicator on top of the gauge.
+		- size: The size of the gauge being displayed.
  */
 struct GaugeIndicator: View {
 	var angle: Angle?
@@ -36,7 +36,7 @@ struct GaugeIndicator: View {
  A custom ViewModifier mainly created to declutter the amount of attributes on the indicator slightly.
  
  - Parameters:
-	- size: The size of the gauge being displayed.
+		- size: The size of the gauge being displayed.
  */
 private struct IndicatorPlacement: ViewModifier {
 	var size: CGSize

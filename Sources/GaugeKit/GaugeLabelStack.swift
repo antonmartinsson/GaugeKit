@@ -11,18 +11,18 @@ import SwiftUI
  A simple vertical stack of labels to be stashed within the gauge view.
  
  - Parameters:
-		- containerSize: The size of the gauge, as provided by a GeometryReader instance in Gauge.
+		- geometry: The frame of the container the label stack is contained within.
 		- value: An integer between 0 and 100 displayed inside the gauge.
 		-	title: A title to be displayed below the value.
  */
 struct GaugeLabelStack: View {
-	var containerSize: CGSize
+	var geometry: GeometryProxy
 	var value: Int?
 	var title: String?
 	
 	var body: some View {
-		let isTaller = containerSize.width < containerSize.height
-		let smallestDimension = isTaller ? containerSize.width : containerSize.height
+		let isTaller = geometry.size.width < geometry.size.height
+		let smallestDimension = isTaller ? geometry.size.width : geometry.size.height
 		
 		VStack {
 			if let unwrappedValue = value {
@@ -36,11 +36,6 @@ struct GaugeLabelStack: View {
 					.font(.system(size: smallestDimension / 20))
 			}
 		}
+		.position(x: geometry.size.width / 2, y: geometry.size.height / 2)
 	}
-}
-
-struct GaugeLabelStack_Previews: PreviewProvider {
-    static var previews: some View {
-        GaugeLabelStack(containerSize: CGSize(width: 500, height: 500), value: 50, title: "Neutral")
-    }
 }
