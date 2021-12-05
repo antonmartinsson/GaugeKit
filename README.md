@@ -66,4 +66,4 @@ GaugeView(colors: [.red, .orange, .yellow, .green])
 
 ## Roadmap
 
-While I don't have many concrete plans for GaugeKit at the moment and plan to just fiddle with it from time to time, I would like to add the ability to customize the scale instead of it being fixed between 0 and 100. Until I find the time and inspiration to do so, keep your eyes peeled on this repo.
+While I don't have many concrete plans for GaugeKit at the moment and plan to just fiddle with it from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here on GitHub.
