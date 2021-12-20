@@ -66,4 +66,4 @@ GaugeView(colors: [.red, .orange, .yellow, .green])
 
 ## Roadmap
 
-While I don't have many concrete plans for GaugeKit at the moment and plan to just fiddle with it from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here on GitHub.
+While I don't have many concrete plans for GaugeKit at the moment, I do plan to fiddle around with it and improve it best I can from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here on GitHub.
