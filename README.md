@@ -22,7 +22,7 @@ let package = Package(
 
 GaugeKit is built with SwiftUI, and thus the minimum requirement to use it is that your project (or the views you're creating with it) has a deployment target set to iOS 13 / macOS 11 or later. 
 
-To use it in a UIKit project, use a [UIHostingController](https://developer.apple.com/documentation/swiftui/uihostingcontroller).
+To use it in a UIKit project, use a [UIHostingController](https://developer.apple.com/documentation/swiftui/uihostingcontroller).\
 To use it in an AppKit project, use a [NSHostingController](https://developer.apple.com/documentation/swiftui/nshostingcontroller) or [NSHostingView](https://developer.apple.com/documentation/swiftui/nshostingview).
 
 ## Usage 
