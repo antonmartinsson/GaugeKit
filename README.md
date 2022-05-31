@@ -1,6 +1,6 @@
 # GaugeKit
 
-GaugeKit is a Swift package which enables easy, effortless creation of a gauge-like view ideal for visualizing a value in a gauge,
+GaugeKit is a free-to-use, lightweight Swift package which enables easy, effortless creation of a gauge-like view ideal for visualizing a value in a gauge,
 not too different from the native gauges used by Apple for some Apple Watch complications.
 
 ## Importing GaugeKit

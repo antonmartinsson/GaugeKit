@@ -14,7 +14,7 @@ class CrossPlatform {
          return screenSize
       }
       else {
-         // use a generic FHD size so any calculations will still work
+         // Use a generic FHD size so any calculations will still work
          return CGSize(width: 1920, height: 1080)
       }
 #elseif os(iOS)
