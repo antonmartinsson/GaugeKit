@@ -24,7 +24,7 @@ struct GaugeIndicator: View {
 		if let placement = angle {
 			Circle()
 				.stroke(lineWidth: lineWidth)
-				.foregroundColor(Color(UIColor.systemBackground))
+                .foregroundColor(CrossPlatform.systemBackgroundColor())
 				.scaleAndPlaceIndicator(withGaugeSize: size)
 				.rotationEffect(Angle(degrees: 126))
 				.rotationEffect(placement, anchor: .center)
