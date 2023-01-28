@@ -44,10 +44,10 @@ GaugeView(title: "Speed", value: 100, maxValue: 1000, colors: [.red, .orange, .y
 Additionally, as space for additional information is quite limited within the gauge, you can initialize a gauge with some additional information using three different (optional) strings. This information will be revealed to the user with a quick flip animation when a tap on the gauge view is recorded.   
 
 ```swift
-let description = "This is a semi-clever reference."
-let secondaryTitle = "#BTTF"
+let strap = "This is a semi-clever reference."
+let title = "#BTTF"
 let body = "This is how fast you need to go to trigger the flux capacitor."
-let additionalInfo = GaugeAdditionalInfo(secondaryTitle: secondaryTitle, description: description, body: body)
+let additionalInfo = GaugeAdditionalInfo(strap: strap, title: title, body: body)
 
 GaugeView(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green], additionalInfo: additionalInfo)
 ```
@@ -55,8 +55,8 @@ GaugeView(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green], a
 If you leave any of the strings as nil, the Text instance responsible for displaying that string will not be rendered. So if you just want to create a gauge with a short description and no secondary title or body, this is also a valid init:
 
 ```swift
-let description = "This is a description."
-let additionalInfo = GaugeAdditionalInfo(secondaryTitle: nil, description: description, body: nil)
+let strap = "This is a semi-clever reference."
+let additionalInfo = GaugeAdditionalInfo(strap: strap, title: nil, body: nil)
 
 GaugeView(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green], additionalInfo: additionalInfo)
 ```
@@ -65,6 +65,15 @@ Finally, if you're feeling like you don't need any built in text elements, you c
 
 ```swift
 GaugeView(colors: [.red, .orange, .yellow, .green])
+```
+
+Should you have the need to control the colors of the indicator or the text within the gauge, there are four view modifiers you can use to do so.
+
+```swift
+.gaugeTitleColor(.blue)
+.gaugeValueColor(.yellow)
+.gaugeIndicatorColor(.blue)
+.gaugeBackTint(.yellow)
 ```
 
 ## Roadmap
