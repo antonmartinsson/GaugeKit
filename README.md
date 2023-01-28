@@ -72,10 +72,13 @@ Should you have the need to control the colors of the indicator or the text with
 ```swift
 // To control the color of the numbers in the center of the gauge.
 .gaugeValueColor(.blue)
+
 // To control the color of the title below the numbers in the center of the gauge.
 .gaugeTitleColor(.yellow)
+
 // To control the color of the indicator.
 .gaugeIndicatorColor(.blue)
+
 // To control the color of the text visible when the gauge is flipped around.
 .gaugeBackTint(.yellow)
 ```
