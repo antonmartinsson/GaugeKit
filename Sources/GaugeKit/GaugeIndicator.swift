@@ -24,13 +24,21 @@ struct GaugeIndicator: View {
     let lineWidth = size.width / 20
     
     if let placement = angle {
-      Circle()
-        .stroke(lineWidth: lineWidth)
-        .scaleAndPlaceIndicator(withGaugeSize: size)
-        .rotationEffect(Angle(degrees: 126))
-        .rotationEffect(placement, anchor: .center)
-        .foregroundColor(color)
-        .shadow(color: .black.opacity(0.1), radius: 2)
+      ZStack {
+        Circle()
+          .stroke(lineWidth: lineWidth)
+          .scaleAndPlaceIndicator(withGaugeSize: size)
+          .rotationEffect(Angle(degrees: 126))
+          .rotationEffect(placement, anchor: .center)
+          .foregroundColor(color)
+          .shadow(color: .black.opacity(0.2), radius: 2)
+        Circle()
+          .strokeBorder(lineWidth: 1)
+          .scaleAndPlaceIndicator(withGaugeSize: size, stroke: true)
+          .rotationEffect(Angle(degrees: 126))
+          .rotationEffect(placement, anchor: .center)
+          .foregroundColor(.white.opacity(0.5))
+      }
     }
   }
 }
@@ -39,14 +47,16 @@ struct GaugeIndicator: View {
  A custom ViewModifier mainly created to declutter the amount of attributes on the indicator slightly.
  
  - Parameters:
- - size: The size of the gauge being displayed.
+  - size: The size of the gauge being displayed.
+  - stroke: Whether or not the view the modifier is being applied to is the stroke on the outside of the indicator.
  */
 private struct IndicatorPlacement: ViewModifier {
-  var size: CGSize
+  let size: CGSize
+  let stroke: Bool
   
   func body(content: Content) -> some View {
     content
-      .padding(size.width / 5)
+      .padding(stroke ? size.width / 5.72 : size.width / 5)
       .frame(width: size.width / 2, height: size.height / 2)
       .position(x: size.width / 2, y: size.height / 2)
       .offset(x: size.width / 2.5)
@@ -54,16 +64,19 @@ private struct IndicatorPlacement: ViewModifier {
 }
 
 private extension View {
-  func scaleAndPlaceIndicator(withGaugeSize gaugeSize: CGSize) -> some View {
-    self.modifier(IndicatorPlacement(size: gaugeSize))
+  func scaleAndPlaceIndicator(withGaugeSize gaugeSize: CGSize, stroke: Bool = false) -> some View {
+    self.modifier(IndicatorPlacement(size: gaugeSize, stroke: stroke))
   }
 }
 
 struct GaugeIndicator_Previews: PreviewProvider {
   static var previews: some View {
-    GaugeView(title: "Speed",
-              value: 88,
-              colors: [.red, .orange, .yellow, .green])
+    GaugeView(
+      title: "Speed",
+      value: 10,
+      colors: [.red, .orange, .yellow, .green]
+    )
+    .preferredColorScheme(.light)
     .padding()
   }
 }

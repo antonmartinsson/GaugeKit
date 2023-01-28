@@ -11,6 +11,19 @@ public struct GaugeAdditionalInfo {
   public let strap: String?
   public let title: String?
   public let body: String?
+  
+  init(strap: String?, title: String?, body: String?) {
+    self.strap = strap
+    self.title = title
+    self.body = body
+  }
+  
+  @available(*, deprecated, message: "Use init(strap:title:body:) instead")
+  init(preTitle: String?, largeTitle: String?, body: String?) {
+    self.strap = preTitle
+    self.title = largeTitle
+    self.body = body
+  }
 }
 
 /**
