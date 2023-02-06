@@ -86,3 +86,7 @@ Should you have the need to control the colors of the indicator or the text with
 ## Roadmap
 
 While I don't have many concrete plans for GaugeKit at the moment, I do plan to fiddle around with it and improve it best I can from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here on GitHub.
+
+## Using GaugeKit in your project?
+
+Are you using GuageKit in one of your projects? Please message me and tell me about it on [Twitter](twitter.com/ntonmartinsson) or by emailing me using the form over at [antonmartinsson.com](antonmartinsson.com). I'd love to see what you create with it!
