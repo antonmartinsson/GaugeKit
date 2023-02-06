@@ -89,4 +89,4 @@ While I don't have many concrete plans for GaugeKit at the moment, I do plan to 
 
 ## Using GaugeKit in your project?
 
-Are you using GuageKit in one of your projects? Please message me and tell me about it on [Twitter](twitter.com/ntonmartinsson) or by emailing me using the form over at [antonmartinsson.com](antonmartinsson.com). I'd love to see what you create with it!
+Are you using GuageKit in one of your projects? Please message me and tell me about it on [Twitter](https://www.twitter.com/ntonmartinsson) or by emailing me using the form over at [antonmartinsson.com](https://www.antonmartinsson.com). I'd love to see what you create with it!
