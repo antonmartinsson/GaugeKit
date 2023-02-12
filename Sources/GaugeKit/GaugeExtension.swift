@@ -13,8 +13,8 @@ extension GaugeView {
   
   /**
    Initializes a gauge with a value and an array of colors to create a background gradient from.
-   Defaults the max value to 100.
-   
+   Defaults the max value to 100 and min value to 0.
+
    - Parameters:
    - title: A short title that will be displayed in the center of the gauge, below its value.
    - value: An integer between 0 and 100 to visualize using the gauge.
@@ -24,14 +24,15 @@ extension GaugeView {
     self.title = nil
     self.value = value
     self.maxValue = 100
+    self.minValue = 0
     self.colors = colors
     self.additionalInfo = nil
   }
   
   /**
    Initializes a gauge with a title, a value and an array of colors to create a background gradient from.
-   Defaults the max value to 100.
-   
+   Defaults the max value to 100 and min value to 0.
+
    - Parameters:
    - title: A short title that will be displayed in the center of the gauge, below its value.
    - value: An integer between 0 and 100 to visualize using the gauge.
@@ -41,6 +42,7 @@ extension GaugeView {
     self.title = title
     self.value = value
     self.maxValue = 100
+    self.minValue = 0
     self.colors = colors
     self.additionalInfo = nil
   }
@@ -48,7 +50,7 @@ extension GaugeView {
   /**
    Initializes a gauge with a title, a value, an array of colors to create a background gradient from,
    as well as some additional information to display on the back of the gauge once it is tapped by the user.
-   Defaults the max value to 100.
+   Defaults the max value to 100 and min value to 0.
    
    - Parameters:
    - title: A short title that will be displayed in the center of the gauge, below its value.
@@ -60,6 +62,7 @@ extension GaugeView {
     self.title = title
     self.value = value
     self.maxValue = 100
+    self.minValue = 0
     self.colors = colors
     self.additionalInfo = additionalInfo
   }
@@ -74,6 +77,7 @@ extension GaugeView {
     self.title = nil
     self.value = nil
     self.maxValue = 0
+    self.minValue = 0
     self.colors = colors
     self.additionalInfo = nil
   }

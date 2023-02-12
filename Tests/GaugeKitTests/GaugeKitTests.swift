@@ -12,6 +12,11 @@ final class GaugeKitTests: XCTestCase {
 		let gauge = GaugeView(title: "A title", value: 100, maxValue: 200, colors: [.red, .green])
 		XCTAssertEqual(gauge.maxValue, 200)
 	}
+  
+  func testMinValueInit() {
+    let gauge = GaugeView(title: "A title", value: 100, minValue: 200, colors: [.red, .green])
+    XCTAssertEqual(gauge.minValue, 200)
+  }
 	
 	func testNoTitle() {
     let gauge = GaugeView(value: 100, colors: [.red, .green])

@@ -14,21 +14,25 @@ import SwiftUI
  - value: An integer between 0 and 100 displayed inside the gauge, which also determines the position of the gauge's indicator.
  - colors: The colors that should be used in the gradient that wipes across the gauge.
  - maxValue: The value the gauge should top out at.
+ - minValue: The value the gauge should start at.
  */
 
 struct GaugeMeter : View {
   let value: Int?
   let colors: [Color]
   let maxValue: Int?
+  let minValue: Int?
   
   let trimStart = 0.1
   let trimEnd = 0.9
   
-  init(value: Int? = nil, maxValue: Int? = nil, colors: [Color]) {
+  init(value: Int? = nil, maxValue: Int? = nil, minValue: Int? = nil, colors: [Color]) {
     self.colors = colors
     self.value = value
     let defaultMaxValue = maxValue == nil && value != nil
+    let defaultMinValue = minValue == nil && value != nil
     self.maxValue = defaultMaxValue ? 100 : maxValue
+    self.minValue = defaultMinValue ? 0 : minValue
   }
   
   var body: some View {
@@ -56,13 +60,12 @@ struct GaugeMeter : View {
         .rotationEffect(Angle(degrees: 90))
         .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 0)
         
-        if let unwrappedValue = value, let unwrappedMax = maxValue {
-          let oneUnit = (Double(360) * 0.8) / Double(unwrappedMax)
-          let degrees = (Double(unwrappedValue) * oneUnit)
-          GaugeIndicator(angle: Angle(degrees: degrees), size: geometry.size)
-        } else if let unwrappedValue = value {
-          let oneUnit = (Double(360) * 0.8) / Double(100)
-          let degrees = (Double(unwrappedValue) * oneUnit)
+        let unwrappedMaxValue = maxValue ?? 100
+        let unwrappedMinValue = minValue ?? 0
+        
+        if let unwrappedValue = value {
+          let oneUnit = (Double(360) * 0.8) / Double(unwrappedMaxValue - unwrappedMinValue)
+          let degrees = (Double(unwrappedValue - unwrappedMinValue) * oneUnit)
           GaugeIndicator(angle: Angle(degrees: degrees), size: geometry.size)
         }
       }

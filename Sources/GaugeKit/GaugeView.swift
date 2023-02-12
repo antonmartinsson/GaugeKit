@@ -16,6 +16,7 @@ import SwiftUI
  - title: A decriptive string value to display inside the gauge.
  - value: An integer displayed inside the gauge, which also determines the position of the gauge's indicator.
  - maxValue: An integer value representing what the gauge should max out at. Defaults to nil if `value` is also nil, and to 100 if a `value` is set, but no explicit `maxValue`.
+ - maxValue: An integer value representing what the gauge should start out at. Defaults to nil if `value` is also nil, and to 0 if a `value` is set, but no explicit `minValue`.
  - colors: The colors that should be used in the gradient that wipes across the gauge.
  - additionalInfo: A struct containing three (optional) strings to display when the user taps on the gauge.
  */
@@ -25,6 +26,7 @@ public struct GaugeView : View {
   let title: String?
   let value: Int?
   let maxValue: Int?
+  let minValue: Int?
   let colors: [Color]
   let additionalInfo: GaugeAdditionalInfo?
   
@@ -32,12 +34,14 @@ public struct GaugeView : View {
     title: String? = nil,
     value: Int? = nil,
     maxValue: Int? = nil,
+    minValue: Int? = nil,
     colors: [Color],
     additionalInfo: GaugeAdditionalInfo? = nil
   ) {
     self.title = title
     self.value = value
     self.maxValue = maxValue
+    self.minValue = minValue
     self.colors = colors
     self.additionalInfo = additionalInfo
   }
@@ -47,7 +51,7 @@ public struct GaugeView : View {
     
     ZStack {
       ZStack {
-        GaugeMeter(value: value, maxValue: maxValue, colors: colors)
+        GaugeMeter(value: value, maxValue: maxValue, minValue: minValue, colors: colors)
         GaugeLabelStack(value: value, title: title)
       }
       .rotation3DEffect(flipAngle, axis: (x: 0, y: 1, z: 0))

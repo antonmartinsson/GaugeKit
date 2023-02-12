@@ -35,7 +35,7 @@ GaugeView(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green])
 
 ![alt text](https://i.imgur.com/iXPEpmm.png)
 
-A basic gauge like this will default to 100 for its max value. You can also explicitely set the max value of the gauge to a custom value. The following initialization will create a gauge that maxes out at 1000 instead of 100.  
+A basic gauge like this will default to 100 for its max value, and to 0 for its min value. You can also explicitely set the max and/or min values of the gauge to a custom value. The following initialization will create a gauge that maxes out at 1000 instead of 100.  
 
 ```swift
 GaugeView(title: "Speed", value: 100, maxValue: 1000, colors: [.red, .orange, .yellow, .green])
