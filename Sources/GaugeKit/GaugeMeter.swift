@@ -25,6 +25,7 @@ struct GaugeMeter : View {
   
   let trimStart = 0.1
   let trimEnd = 0.9
+  let progressTo: Double
   
   init(value: Int? = nil, maxValue: Int? = nil, minValue: Int? = nil, colors: [Color]) {
     self.colors = colors
@@ -33,6 +34,11 @@ struct GaugeMeter : View {
     let defaultMinValue = minValue == nil && value != nil
     self.maxValue = defaultMaxValue ? 100 : maxValue
     self.minValue = defaultMinValue ? 0 : minValue
+    
+    let unwrappedMin = minValue ?? 0
+    let unwrappedMax = maxValue ?? 100
+    let percentage = Double(value ?? 0 + unwrappedMin) / Double(unwrappedMax)
+    self.progressTo = percentage * trimEnd + trimStart
   }
   
   var body: some View {
@@ -42,10 +48,10 @@ struct GaugeMeter : View {
     ZStack {
       GeometryReader { geometry in
         let gradient = Gradient(colors: colors)
-        let meterThickness = geometry.size.width / 10
+        let meterThickness = geometry.size.width / 20
         
         AngularGradient(
-          gradient: gradient,
+          gradient: Gradient(colors: [Color(hue: 0, saturation: 0, brightness: 0.85)]),
           center: .center,
           startAngle: .degrees(startAngle),
           endAngle: .degrees(endAngle)
@@ -58,16 +64,21 @@ struct GaugeMeter : View {
           )
         )
         .rotationEffect(Angle(degrees: 90))
-        .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 0)
         
-        let unwrappedMaxValue = maxValue ?? 100
-        let unwrappedMinValue = minValue ?? 0
-        
-        if let unwrappedValue = value {
-          let oneUnit = (Double(360) * 0.8) / Double(unwrappedMaxValue - unwrappedMinValue)
-          let degrees = (Double(unwrappedValue - unwrappedMinValue) * oneUnit)
-          GaugeIndicator(angle: Angle(degrees: degrees), size: geometry.size)
-        }
+        AngularGradient(
+          gradient: gradient,
+          center: .center,
+          startAngle: .degrees(startAngle),
+          endAngle: .degrees(endAngle)
+        )
+        .mask(
+          GaugeMask(
+            trimStart: trimStart,
+            trimEnd: progressTo,
+            meterThickness: meterThickness
+          )
+        )
+        .rotationEffect(Angle(degrees: 90))
       }
     }
     .aspectRatio(1, contentMode: .fit)
@@ -98,6 +109,6 @@ private struct GaugeMask: View {
 struct GaugeComponents_Previews: PreviewProvider {
   static var previews: some View {
     let colors: [Color] = [.red, .orange, .yellow, .green]
-    GaugeView(title: "Speed", value: 88, colors: colors)
+    GaugeView(title: "Speed", value: 55, colors: colors)
   }
 }
