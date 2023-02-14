@@ -51,7 +51,8 @@ struct GaugeMeter : View {
         let meterThickness = geometry.size.width / 20
         
         AngularGradient(
-          gradient: Gradient(colors: [Color(hue: 0, saturation: 0, brightness: 0.85)]),
+          gradient: Gradient(colors: [Color(hue: 0, saturation: 0, brightness: 0.85
+                                           )]),
           center: .center,
           startAngle: .degrees(startAngle),
           endAngle: .degrees(endAngle)
@@ -80,6 +81,8 @@ struct GaugeMeter : View {
         )
         .rotationEffect(Angle(degrees: 90))
       }
+      Text(minValue != nil ? String(minValue ?? 0) : "").frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading).padding(.leading, 20).padding(.bottom, 50).font(.system(size: 24))
+      Text(maxValue != nil ? String(maxValue ?? 100) : "").frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing).padding(.trailing, 20).padding(.bottom, 50).font(.system(size: 24))
     }
     .aspectRatio(1, contentMode: .fit)
   }
@@ -109,6 +112,6 @@ private struct GaugeMask: View {
 struct GaugeComponents_Previews: PreviewProvider {
   static var previews: some View {
     let colors: [Color] = [.red, .orange, .yellow, .green]
-    GaugeView(title: "Speed", value: 55, colors: colors)
+    GaugeView(title: "Speed", value: 5, maxValue: 10, minValue: 0, colors: colors)
   }
 }
