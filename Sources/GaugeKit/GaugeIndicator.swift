@@ -59,7 +59,7 @@ private struct IndicatorPlacement: ViewModifier {
       .padding(stroke ? size.width / 5.72 : size.width / 5)
       .frame(width: size.width / 2, height: size.height / 2)
       .position(x: size.width / 2, y: size.height / 2)
-      .offset(x: size.width / 2.5)
+      .offset(x: size.width / 2.25)
   }
 }
 

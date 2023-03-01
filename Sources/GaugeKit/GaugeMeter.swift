@@ -86,9 +86,11 @@ private struct GaugeMask: View {
   var body: some View {
     Circle()
       .trim(from: CGFloat(trimStart), to: CGFloat(trimEnd))
-      .stroke(style: StrokeStyle(lineWidth: CGFloat(meterThickness),
-                                 lineCap: .round))
-      .padding(CGFloat(meterThickness))
+      .stroke(style: StrokeStyle(
+        lineWidth: CGFloat(meterThickness),
+        lineCap: .round)
+      )
+      .padding(CGFloat(meterThickness/2))
   }
 }
 
