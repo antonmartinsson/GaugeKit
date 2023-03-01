@@ -45,22 +45,25 @@ public struct GaugeView : View {
   public var body: some View {
     let flipAngle = Angle(degrees: flipped ? 180 : 0)
     
-    ZStack {
+    GeometryReader { geometry in
       ZStack {
-        GaugeMeter(value: value, maxValue: maxValue, colors: colors)
-        GaugeLabelStack(value: value, title: title)
+        ZStack {
+          GaugeMeter(value: value, maxValue: maxValue, colors: colors)
+          GaugeLabelStack(value: value, title: title)
+        }
+        .rotation3DEffect(flipAngle, axis: (x: 0, y: 1, z: 0))
+        .opacity(flipped ? 0.1 : 1)
+        
+        if let info = additionalInfo {
+          GaugeBackView(flipped: $flipped, additionalInfo: info)
+        }
       }
-      .rotation3DEffect(flipAngle, axis: (x: 0, y: 1, z: 0))
-      .opacity(flipped ? 0.1 : 1)
-      
-      if let info = additionalInfo {
-        GaugeBackView(flipped: $flipped, additionalInfo: info)
-      }
-    }
-    .onTapGesture {
-      if additionalInfo != nil {
-        withAnimation {
-          self.flipped.toggle()
+      .offset(y: geometry.size.height * 0.05)
+      .onTapGesture {
+        if additionalInfo != nil {
+          withAnimation {
+            self.flipped.toggle()
+          }
         }
       }
     }
@@ -70,5 +73,6 @@ public struct GaugeView : View {
 struct Gauge_Previews: PreviewProvider {
   static var previews: some View {
     GaugeView(title: "Hej", value: 50, colors: [.red, .orange, .yellow, .green], additionalInfo: .init(strap: "This is the top title", title: "Title", body: "Hejsan svejsan"))
+      .padding()
   }
 }
