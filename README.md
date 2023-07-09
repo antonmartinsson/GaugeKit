@@ -89,11 +89,11 @@ While I don't have many concrete plans for GaugeKit at the moment, I do plan to 
 
 ## Apps using GaugeKit
 
-[Cryptoverview](https://apps.apple.com/se/app/cryptoverview/id1578673077?l=en-GB), by yours truly!
+[Cryptoverview](https://apps.apple.com/se/app/cryptoverview/id1578673077?l=en-GB), by [yours truly](https://twitter.com/ntonmartinsson?s=21&t=cNLR7J7k2hUXZAkqBszDEw)!
 
-[MecaTest](https://apps.apple.com/se/app/mecatest/id6447468608?l=en-GB), by Jean-François Denniel
+[MecaTest](https://apps.apple.com/se/app/mecatest/id6447468608?l=en-GB), by Jean-François Denniel.
 
-[Conal](https://apps.apple.com/se/app/conal/id6450399826?l=en-GB), by [@ConalApp](https://twitter.com/conalapp?s=21&t=cNLR7J7k2hUXZAkqBszDEw)
+[Conal](https://apps.apple.com/se/app/conal/id6450399826?l=en-GB), by [@ConalApp](https://twitter.com/conalapp?s=21&t=cNLR7J7k2hUXZAkqBszDEw).
 
 ## Using GaugeKit in your project?
 
