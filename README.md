@@ -85,11 +85,11 @@ Should you have the need to control the colors of the indicator or the text with
 
 ## Roadmap
 
-While I don't have many concrete plans for GaugeKit at the moment, I do plan to fiddle around with it and improve it best I can from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here on GitHub.
+While I don't have many concrete plans for GaugeKit at the moment, I do plan to fiddle around with it and improve it best I can from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here [on Twitter](https://twitter.com/ntonmartinsson).
 
 ## Apps using GaugeKit
 
-[Cryptoverview](https://apps.apple.com/se/app/cryptoverview/id1578673077?l=en-GB), by [yours truly](https://twitter.com/ntonmartinsson?s=21&t=cNLR7J7k2hUXZAkqBszDEw)!
+[Cryptoverview](https://apps.apple.com/se/app/cryptoverview/id1578673077?l=en-GB), by [yours truly](https://twitter.com/ntonmartinsson)!
 
 [MecaTest](https://apps.apple.com/se/app/mecatest/id6447468608?l=en-GB), by Jean-François Denniel.
 
