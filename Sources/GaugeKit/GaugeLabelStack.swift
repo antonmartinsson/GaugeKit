@@ -22,27 +22,39 @@ struct GaugeLabelStack: View {
   var value: Int?
   var title: String?
   
+  private func smallestDimension(for geometry: GeometryProxy) -> Double {
+    let isTaller = geometry.size.width < geometry.size.height
+    let smallestDimension = isTaller ? geometry.size.width : geometry.size.height
+    return smallestDimension
+  }
+  
   var body: some View {
     GeometryReader { geometry in
-      let isTaller = geometry.size.width < geometry.size.height
-      let smallestDimension = isTaller ? geometry.size.width : geometry.size.height
-      
       VStack {
         if let unwrappedValue = value {
           Text("\(unwrappedValue)")
             .fontWeight(.bold)
-            .font(.system(size: smallestDimension / 4))
+            .font(.system(size: smallestDimension(for: geometry) / 4))
             .foregroundColor(valueColor)
+            .lineLimit(1)
+            .frame(maxWidth: geometry.size.width * 0.8)
         }
         if let unwrappedTitle = title {
           Text(unwrappedTitle)
             .fontWeight(.light)
-            .font(.system(size: smallestDimension / 20))
+            .font(.system(size: smallestDimension(for: geometry) / 12))
             .foregroundColor(titleColor)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: geometry.size.width / 2)
         }
       }
       .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
     }
     .aspectRatio(1, contentMode: .fit)
   }
+}
+
+#Preview {
+  let colors: [Color] = [.red, .orange, .yellow, .green]
+  return GaugeView(title: "Speed", value: 88, maxValue: 100, colors: colors)
 }
