@@ -21,8 +21,8 @@ struct GaugeMeter : View {
   let colors: [Color]
   let maxValue: Int?
   
-  let trimStart = 0.1
-  let trimEnd = 0.9
+  private let trimStart = 0.1
+  private let trimEnd = 0.9
   
   init(value: Int? = nil, maxValue: Int? = nil, colors: [Color]) {
     self.colors = colors
@@ -31,15 +31,39 @@ struct GaugeMeter : View {
     self.maxValue = defaultMaxValue ? 100 : maxValue
   }
   
+  private var startAngle: Double {
+    360 * trimStart
+  }
+  
+  private var endAngle: Double {
+    360 * trimEnd
+  }
+  
+  private var gradient: Gradient {
+    Gradient(colors: colors)
+  }
+  
+  private var indicatorAngle: Angle? {
+    if let value, let maxValue {
+      let oneUnit = (Double(360) * 0.8) / Double(maxValue)
+      let degrees = (Double(value) * oneUnit)
+      return Angle(degrees: degrees > (360 * 0.8) ? 360 * 0.8 : degrees)
+    } else if let value {
+      let oneUnit = (Double(360) * 0.8) / Double(100)
+      let degrees = (Double(value) * oneUnit)
+      return Angle(degrees: degrees > (360 * 0.8) ? 360 * 0.8 : degrees)
+    } else {
+      return nil
+    }
+  }
+
+  private func meterThickness(for geometry: GeometryProxy) -> Double {
+    (geometry.size.width / 10)
+  }
+  
   var body: some View {
-    let startAngle = 360 * trimStart
-    let endAngle = 360 * trimEnd
-    
     ZStack {
       GeometryReader { geometry in
-        let gradient = Gradient(colors: colors)
-        let meterThickness = geometry.size.width / 10
-        
         AngularGradient(
           gradient: gradient,
           center: .center,
@@ -50,20 +74,14 @@ struct GaugeMeter : View {
           GaugeMask(
             trimStart: trimStart,
             trimEnd: trimEnd,
-            meterThickness: meterThickness
+            meterThickness: meterThickness(for: geometry)
           )
         )
         .rotationEffect(Angle(degrees: 90))
         .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 0)
         
-        if let unwrappedValue = value, let unwrappedMax = maxValue {
-          let oneUnit = (Double(360) * 0.8) / Double(unwrappedMax)
-          let degrees = (Double(unwrappedValue) * oneUnit)
-          GaugeIndicator(angle: Angle(degrees: degrees), size: geometry.size)
-        } else if let unwrappedValue = value {
-          let oneUnit = (Double(360) * 0.8) / Double(100)
-          let degrees = (Double(unwrappedValue) * oneUnit)
-          GaugeIndicator(angle: Angle(degrees: degrees), size: geometry.size)
+        if let indicatorAngle {
+          GaugeIndicator(angle: indicatorAngle, size: geometry.size)
         }
       }
     }
@@ -94,9 +112,7 @@ private struct GaugeMask: View {
   }
 }
 
-struct GaugeComponents_Previews: PreviewProvider {
-  static var previews: some View {
-    let colors: [Color] = [.red, .orange, .yellow, .green]
-    GaugeView(title: "Speed", value: 88, colors: colors)
-  }
+#Preview {
+  let colors: [Color] = [.red, .orange, .yellow, .green]
+  return GaugeView(title: "Speed", value: 88, maxValue: 100, colors: colors)
 }

@@ -39,13 +39,16 @@ struct GaugeBackView: View {
   @Binding var flipped: Bool
   let additionalInfo: GaugeAdditionalInfo
   
+  private var flipAngle: Angle {
+    Angle(degrees: flipped ? -180 : 0)
+  }
+  
   var body: some View {
-    let flipAngle = Angle(degrees: flipped ? -180 : 0)
-    
     GeometryReader { geometry in
       VStack {
         if let preTitle = additionalInfo.strap {
           Text(preTitle)
+            .font(.system(size: geometry.size.width / 20, weight: .regular))
         }
         if let title = additionalInfo.title {
           Text(title)
@@ -54,6 +57,7 @@ struct GaugeBackView: View {
         }
         if let body = additionalInfo.body {
           Text(body)
+            .font(.system(size: geometry.size.width / 20, weight: .regular))
         }
       }
       .foregroundColor(color)
