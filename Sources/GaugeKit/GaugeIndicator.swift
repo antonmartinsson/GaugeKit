@@ -14,7 +14,7 @@ import SwiftUI
     - angle: The angle at which to place the indicator on top of the gauge.
     - size: The size of the gauge being displayed.
  */
-@available(iOS 16.0, *)
+@available(iOS 16.0, macOS 13.0, watchOS 9.0, *)
 struct GaugeIndicator: View {
     #if !os(visionOS)
     @Environment(\.widgetRenderingMode) private var renderingMode
