@@ -14,11 +14,51 @@ import SwiftUI
     - angle: The angle at which to place the indicator on top of the gauge.
     - size: The size of the gauge being displayed.
  */
+@available(iOS 16.0, *)
 struct GaugeIndicator: View {
+    #if !os(visionOS)
+    @Environment(\.widgetRenderingMode) private var renderingMode
+    #endif
     @Environment(\.indicatorColor) var indicatorColor
     
-    var angle: Angle?
-    var size: CGSize
+    let angle: Angle?
+    let size: CGSize
+    
+    var body: some View {
+        let lineWidth = size.width / 20
+        
+        if let placement = angle {
+            ZStack {
+                Circle()
+                    .stroke(lineWidth: lineWidth)
+                    .scaleAndPlaceIndicator(withGaugeSize: size)
+                    .rotationEffect(Angle(degrees: 126))
+                    .rotationEffect(placement, anchor: .center)
+                    .foregroundStyle(indicatorColor)
+                    .shadow(color: .black.opacity(0.2), radius: 2)
+                Circle()
+                    .strokeBorder(lineWidth: 1)
+                    .scaleAndPlaceIndicator(withGaugeSize: size, stroke: true)
+                    .rotationEffect(Angle(degrees: 126))
+                    .rotationEffect(placement, anchor: .center)
+                    .foregroundColor(.white.opacity(0.5))
+                if renderingMode == .accented {
+                    Circle()
+                        .stroke(lineWidth: 2)
+                        .scaleAndPlaceIndicator(withGaugeSize: size, stroke: true)
+                        .rotationEffect(Angle(degrees: 126))
+                        .rotationEffect(placement, anchor: .center)
+                }
+            }
+        }
+    }
+}
+
+struct LegacyGaugeIndicator: View {
+    @Environment(\.indicatorColor) var indicatorColor
+    
+    let angle: Angle?
+    let size: CGSize
     
     var body: some View {
         let lineWidth = size.width / 20
