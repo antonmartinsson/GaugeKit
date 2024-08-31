@@ -72,11 +72,7 @@ struct GaugeMeter : View {
         private let trimEnd = 0.9
         
         private var gradient: Gradient {
-            #if os(visionOS)
             Gradient(colors: colors)
-            #else
-            Gradient(colors: renderingMode == .accented ? [.white] : colors)
-            #endif
         }
         
         private var startAngle: Double {
@@ -98,6 +94,7 @@ struct GaugeMeter : View {
                 startAngle: .degrees(startAngle),
                 endAngle: .degrees(endAngle)
             )
+            .widgetAccentable()
             .mask(
                 GaugeMask(
                     trimStart: trimStart,
