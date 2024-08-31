@@ -20,68 +20,68 @@ import SwiftUI
  - additionalInfo: A struct containing three (optional) strings to display when the user taps on the gauge.
  */
 public struct GaugeView : View {
-  @State private var flipped: Bool = false
-  
-  let title: String?
-  let value: Int?
-  let maxValue: Int?
-  let colors: [Color]
-  let additionalInfo: GaugeAdditionalInfo?
-  
-  public init(
-    title: String? = nil,
-    value: Int? = nil,
-    maxValue: Int? = nil,
-    colors: [Color],
-    additionalInfo: GaugeAdditionalInfo? = nil
-  ) {
-    self.title = title
-    self.value = value
-    self.maxValue = maxValue
-    self.colors = colors
-    self.additionalInfo = additionalInfo
-  }
-  
-  private var flipAngle: Angle {
-    Angle(degrees: flipped ? 180 : 0)
-  }
-  
-  public var body: some View {
-    GeometryReader { geometry in
-      ZStack {
-        ZStack {
-          GaugeMeter(value: value, maxValue: maxValue, colors: colors)
-          GaugeLabelStack(value: value, title: title)
-        }
-        .rotation3DEffect(flipAngle, axis: (x: 0, y: 1, z: 0))
-        .opacity(flipped ? 0.05 : 1)
-        
-        if let info = additionalInfo {
-          GaugeBackView(flipped: $flipped, additionalInfo: info)
-        }
-      }
-      .offset(y: geometry.size.height * 0.05)
-      .onTapGesture {
-        if additionalInfo != nil {
-          withAnimation {
-            self.flipped.toggle()
-          }
-        }
-      }
+    @State private var flipped: Bool = false
+    
+    let title: String?
+    let value: Int?
+    let maxValue: Int?
+    let colors: [Color]
+    let additionalInfo: GaugeAdditionalInfo?
+    
+    public init(
+        title: String? = nil,
+        value: Int? = nil,
+        maxValue: Int? = nil,
+        colors: [Color],
+        additionalInfo: GaugeAdditionalInfo? = nil
+    ) {
+        self.title = title
+        self.value = value
+        self.maxValue = maxValue
+        self.colors = colors
+        self.additionalInfo = additionalInfo
     }
-    .aspectRatio(1, contentMode: .fit)
-  }
+    
+    private var flipAngle: Angle {
+        Angle(degrees: flipped ? 180 : 0)
+    }
+    
+    public var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                ZStack {
+                    GaugeMeter(value: value, maxValue: maxValue, colors: colors)
+                    GaugeLabelStack(value: value, title: title)
+                }
+                .rotation3DEffect(flipAngle, axis: (x: 0, y: 1, z: 0))
+                .opacity(flipped ? 0.05 : 1)
+                
+                if let info = additionalInfo {
+                    GaugeBackView(flipped: $flipped, additionalInfo: info)
+                }
+            }
+            .offset(y: geometry.size.height * 0.05)
+            .onTapGesture {
+                if additionalInfo != nil {
+                    withAnimation {
+                        self.flipped.toggle()
+                    }
+                }
+            }
+        }
+        .aspectRatio(1, contentMode: .fit)
+    }
 }
 
 #Preview {
-  GaugeView(
-    title: "Speed",
-    value: 100,
-    colors: [.red, .orange, .yellow, .green],
-    additionalInfo: .init(
-      strap: "This is the top title",
-      title: "Title",
-      body: "Hejsan svejsan")
-  )
-  .padding()
+    GaugeView(
+        title: "Speed",
+        value: 100,
+        colors: [.red, .orange, .yellow, .green],
+        additionalInfo: .init(
+            strap: "This is the top title",
+            title: "Title",
+            body: "Hejsan svejsan")
+    )
+    .padding()
 }
