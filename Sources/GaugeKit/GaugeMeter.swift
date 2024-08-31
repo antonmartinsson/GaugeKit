@@ -53,7 +53,7 @@ struct GaugeMeter : View {
             }
             
             if let indicatorAngle {
-                if #available(iOS 16.0, *) {
+                if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
                     GaugeIndicator(angle: indicatorAngle, size: geometry.size)
                 } else {
                     LegacyGaugeIndicator(angle: indicatorAngle, size: geometry.size)
