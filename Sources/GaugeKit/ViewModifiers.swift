@@ -1,25 +1,25 @@
 import SwiftUI
 
 public extension View {
-  func gaugeValueColor(_ color: Color) -> some View {
+  func gaugeValueColor(_ color: ForegroundStyle) -> some View {
     modifier(ValueLabelColor(color: color))
   }
   
-  func gaugeTitleColor(_ color: Color) -> some View {
+  func gaugeTitleColor(_ color: ForegroundStyle) -> some View {
     modifier(TitleLabelColor(color: color))
   }
   
-  func gaugeIndicatorColor(_ color: Color) -> some View {
+    func gaugeIndicatorColor(_ color: BackgroundStyle) -> some View {
     modifier(IndicatorColor(color: color))
   }
   
-  func gaugeBackTint(_ color: Color) -> some View {
+  func gaugeBackTint(_ color: ForegroundStyle) -> some View {
     modifier(BackTint(color: color))
   }
 }
 
 struct ValueLabelColor: ViewModifier {
-  let color: Color
+  let color: ForegroundStyle
   
   func body(content: Content) -> some View {
     content
@@ -28,7 +28,7 @@ struct ValueLabelColor: ViewModifier {
 }
 
 struct TitleLabelColor: ViewModifier {
-  let color: Color
+  let color: ForegroundStyle
   
   func body(content: Content) -> some View {
     content
@@ -37,7 +37,7 @@ struct TitleLabelColor: ViewModifier {
 }
 
 struct IndicatorColor: ViewModifier {
-  let color: Color
+  let color: BackgroundStyle
   
   func body(content: Content) -> some View {
     content
@@ -46,7 +46,7 @@ struct IndicatorColor: ViewModifier {
 }
 
 struct BackTint: ViewModifier {
-  let color: Color
+    let color: ForegroundStyle
   
   func body(content: Content) -> some View {
     content
@@ -54,40 +54,9 @@ struct BackTint: ViewModifier {
   }
 }
 
-private struct ValueLabelColorKey: EnvironmentKey {
-  static let defaultValue: Color = CrossPlatform.systemLabelColor()
-}
-
-private struct TitleLabelColorKey: EnvironmentKey {
-  static let defaultValue: Color = CrossPlatform.systemLabelColor()
-}
-
-private struct IndicatorColorKey: EnvironmentKey {
-  static let defaultValue: Color = CrossPlatform.systemBackgroundColor()
-}
-
-private struct BackTintColorKey: EnvironmentKey {
-  static let defaultValue: Color = CrossPlatform.systemLabelColor()
-}
-
 extension EnvironmentValues {
-  var valueLabelColor: Color {
-    get { self[ValueLabelColorKey.self] }
-    set { self[ValueLabelColorKey.self] = newValue }
-  }
-  
-  var titleLabelColor: Color {
-    get { self[TitleLabelColorKey.self] }
-    set { self[TitleLabelColorKey.self] = newValue }
-  }
-  
-  var indicatorColor: Color {
-    get { self[IndicatorColorKey.self] }
-    set { self[IndicatorColorKey.self] = newValue }
-  }
-  
-  var backTintColor: Color {
-    get { self[BackTintColorKey.self] }
-    set { self[BackTintColorKey.self] = newValue }
-  }
+    @Entry var valueLabelColor: ForegroundStyle = .foreground
+    @Entry var titleLabelColor: ForegroundStyle = .foreground
+    @Entry var indicatorColor: BackgroundStyle = .background
+    @Entry var backTintColor: ForegroundStyle = .foreground
 }

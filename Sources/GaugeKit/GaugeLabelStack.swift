@@ -16,8 +16,8 @@ import SwiftUI
  -	title: A title to be displayed below the value.
  */
 struct GaugeLabelStack: View {
-  @Environment(\.valueLabelColor) var valueColor
-  @Environment(\.titleLabelColor) var titleColor
+  @Environment(\.valueLabelColor) var valueStyle
+  @Environment(\.titleLabelColor) var titleStyle
   
   var value: Int?
   var title: String?
@@ -35,7 +35,7 @@ struct GaugeLabelStack: View {
           Text("\(unwrappedValue)")
             .fontWeight(.bold)
             .font(.system(size: smallestDimension(for: geometry) / 4))
-            .foregroundColor(valueColor)
+            .foregroundStyle(valueStyle)
             .lineLimit(1)
             .frame(maxWidth: geometry.size.width * 0.8)
         }
@@ -43,7 +43,7 @@ struct GaugeLabelStack: View {
           Text(unwrappedTitle)
             .fontWeight(.light)
             .font(.system(size: smallestDimension(for: geometry) / 12))
-            .foregroundColor(titleColor)
+            .foregroundStyle(titleStyle)
             .multilineTextAlignment(.center)
             .frame(maxWidth: geometry.size.width / 2)
         }

@@ -15,7 +15,7 @@ import SwiftUI
  - size: The size of the gauge being displayed.
  */
 struct GaugeIndicator: View {
-  @Environment(\.indicatorColor) var color
+  @Environment(\.indicatorColor) var indicatorStyle
   
   var angle: Angle?
   var size: CGSize
@@ -30,7 +30,7 @@ struct GaugeIndicator: View {
           .scaleAndPlaceIndicator(withGaugeSize: size)
           .rotationEffect(Angle(degrees: 126))
           .rotationEffect(placement, anchor: .center)
-          .foregroundColor(color)
+          .foregroundStyle(indicatorStyle)
           .shadow(color: .black.opacity(0.2), radius: 2)
         Circle()
           .strokeBorder(lineWidth: 1)
@@ -69,15 +69,12 @@ private extension View {
   }
 }
 
-struct GaugeIndicator_Previews: PreviewProvider {
-  static var previews: some View {
+#Preview {
     GaugeView(
       title: "Speed",
       value: 10,
       colors: [.red, .orange, .yellow, .green]
     )
-    .preferredColorScheme(.light)
     .padding()
-  }
 }
 
