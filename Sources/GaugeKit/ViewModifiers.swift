@@ -2,26 +2,26 @@ import SwiftUI
 
 public extension View {
     @available(*, deprecated, message: "Use a regular .foregroundStyle modifier instead")
-    func gaugeValueColor(_ color: ForegroundStyle) -> some View {
+    func gaugeValueColor(_ color: Color) -> some View {
         modifier(ValueLabelColor(color: color))
     }
     
     @available(*, deprecated, message: "Use a regular .foregroundStyle modifier instead")
-    func gaugeTitleColor(_ color: ForegroundStyle) -> some View {
+    func gaugeTitleColor(_ color: Color) -> some View {
         modifier(TitleLabelColor(color: color))
     }
     
-    func gaugeIndicatorColor(_ color: BackgroundStyle) -> some View {
+    func gaugeIndicatorColor(_ color: Color) -> some View {
         modifier(IndicatorColor(color: color))
     }
     
-    func gaugeBackTint(_ color: ForegroundStyle) -> some View {
+    func gaugeBackTint(_ color: Color) -> some View {
         modifier(BackTint(color: color))
     }
 }
 
 struct ValueLabelColor: ViewModifier {
-    let color: ForegroundStyle
+    let color: Color
     
     func body(content: Content) -> some View {
         content
@@ -30,7 +30,7 @@ struct ValueLabelColor: ViewModifier {
 }
 
 struct TitleLabelColor: ViewModifier {
-    let color: ForegroundStyle
+    let color: Color
     
     func body(content: Content) -> some View {
         content
@@ -39,7 +39,7 @@ struct TitleLabelColor: ViewModifier {
 }
 
 struct IndicatorColor: ViewModifier {
-    let color: BackgroundStyle
+    let color: Color
     
     func body(content: Content) -> some View {
         content
@@ -48,7 +48,7 @@ struct IndicatorColor: ViewModifier {
 }
 
 struct BackTint: ViewModifier {
-    let color: ForegroundStyle
+    let color: Color
     
     func body(content: Content) -> some View {
         content
@@ -57,8 +57,8 @@ struct BackTint: ViewModifier {
 }
 
 extension EnvironmentValues {
-    @Entry var valueLabelColor: ForegroundStyle? = nil
-    @Entry var titleLabelColor: ForegroundStyle? = nil
-    @Entry var indicatorColor: BackgroundStyle = .background
-    @Entry var backTintColor: ForegroundStyle = .foreground
+    @Entry var valueLabelColor: Color? = nil
+    @Entry var titleLabelColor: Color? = nil
+    @Entry var indicatorColor: Color = CrossPlatform.systemBackgroundColor()
+    @Entry var backTintColor: Color = CrossPlatform.systemLabelColor()
 }

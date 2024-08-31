@@ -70,11 +70,6 @@ GaugeView(colors: [.red, .orange, .yellow, .green])
 Should you have the need to control the colors of the indicator or the text within the gauge, there are four view modifiers you can use to do so.
 
 ```swift
-// To control the color of the numbers in the center of the gauge.
-.gaugeValueColor(.blue)
-
-// To control the color of the title below the numbers in the center of the gauge.
-.gaugeTitleColor(.yellow)
 
 // To control the color of the indicator.
 .gaugeIndicatorColor(.blue)

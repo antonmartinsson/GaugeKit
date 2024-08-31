@@ -34,7 +34,7 @@ public struct GaugeAdditionalInfo {
     - additionalInfo: The info to display within the view.
  */
 struct GaugeBackView: View {
-    @Environment(\.backTintColor) var backTintStyle
+    @Environment(\.backTintColor) var backTintColor
     
     @Binding var flipped: Bool
     let additionalInfo: GaugeAdditionalInfo
@@ -60,7 +60,7 @@ struct GaugeBackView: View {
                         .font(.system(size: geometry.size.width / 20, weight: .regular))
                 }
             }
-            .foregroundStyle(backTintStyle)
+            .foregroundStyle(backTintColor)
             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
         }
         .opacity(flipped ? 1 : 0)

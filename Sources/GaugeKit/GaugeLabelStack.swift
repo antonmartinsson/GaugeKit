@@ -16,8 +16,8 @@ import SwiftUI
     - title: A title to be displayed below the value.
  */
 struct GaugeLabelStack: View {
-    @Environment(\.valueLabelColor) var valueStyle
-    @Environment(\.titleLabelColor) var titleStyle
+    @Environment(\.valueLabelColor) var valueColor
+    @Environment(\.titleLabelColor) var titleColor
     
     let value: Int?
     let title: String?
@@ -31,12 +31,12 @@ struct GaugeLabelStack: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                if let value, let valueStyle {
+                if let value, let valueColor {
                     ValueView(
                         value: value,
                         fontSize: smallestDimension(for: geometry) / 4
                     )
-                    .foregroundStyle(valueStyle)
+                    .foregroundStyle(valueColor)
                     .frame(maxWidth: geometry.size.width * 0.8)
                 } else if let value {
                     ValueView(
@@ -45,12 +45,12 @@ struct GaugeLabelStack: View {
                     )
                     .frame(maxWidth: geometry.size.width * 0.8)
                 }
-                if let title, let titleStyle {
+                if let title, let titleColor {
                     TitleView(
                         string: title,
                         fontSize: smallestDimension(for: geometry) / 12
                     )
-                    .foregroundStyle(titleStyle)
+                    .foregroundStyle(titleColor)
                     .frame(maxWidth: geometry.size.width / 2)
                 } else if let title {
                     TitleView(
