@@ -70,25 +70,17 @@ struct GaugeLabelStack: View {
         let fontSize: Double
         
         var body: some View {
-            #if os(visionOS)
-            Text("\(value)")
-              .fontWeight(.bold)
-              .font(.system(size: fontSize))
-              .lineLimit(1)
-            #else
             if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
                 Text("\(value)")
                   .fontWeight(.bold)
                   .font(.system(size: fontSize))
                   .lineLimit(1)
-                  .widgetAccentable()
             } else {
                 Text("\(value)")
                   .fontWeight(.bold)
                   .font(.system(size: fontSize))
                   .lineLimit(1)
             }
-            #endif
         }
     }
     
@@ -97,25 +89,17 @@ struct GaugeLabelStack: View {
         let fontSize: Double
         
         var body: some View {
-            #if os(visionOS)
-            Text(string)
-                .fontWeight(.light)
-                .font(.system(size: fontSize))
-                .multilineTextAlignment(.center)
-            #else
             if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
                 Text(string)
                     .fontWeight(.light)
                     .font(.system(size: fontSize))
                     .multilineTextAlignment(.center)
-                    .widgetAccentable()
             } else {
                 Text(string)
                     .fontWeight(.light)
                     .font(.system(size: fontSize))
                     .multilineTextAlignment(.center)
             }
-            #endif
         }
     }
 }
