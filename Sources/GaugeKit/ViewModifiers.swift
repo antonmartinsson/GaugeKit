@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 public extension View {
     @available(*, deprecated, message: "Use a regular .foregroundStyle modifier instead")
     func gaugeValueColor(_ color: Color) -> some View {
