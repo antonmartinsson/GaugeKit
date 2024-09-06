@@ -9,6 +9,7 @@ import SwiftUI
 #if !os(visionOS)
 import WidgetKit
 #endif
+
 /**
  The circular meter of the gauge view.
  
@@ -17,7 +18,6 @@ import WidgetKit
  - colors: The colors that should be used in the gradient that wipes across the gauge.
  - maxValue: The value the gauge should top out at.
  */
-
 struct GaugeMeter : View {
     @Environment(\.indicatorColor) private var indicatorColor
     
@@ -48,17 +48,31 @@ struct GaugeMeter : View {
     
     var body: some View {
         GeometryReader { geometry in
-            if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
+            #if os(visionOS)
+            MeterGradient(colors: colors, geometry: geometry)
+                .overlay {
+                    GaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                }
+            #else
+            if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *), indicatorColor != nil {
+                MeterGradient(colors: colors, geometry: geometry)
+                    .overlay {
+                        GaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                    }
+            } else if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
                 MeterGradient(colors: colors, geometry: geometry)
                     .reverseMask {
                         GaugeIndicator(angle: indicatorAngle, size: geometry.size)
                     }
-            } else {
+            } else if indicatorColor != nil {
                 LegacyMeterGradient(colors: colors, geometry: geometry)
-                    .reverseMask {
+                    .overlay {
                         LegacyGaugeIndicator(angle: indicatorAngle, size: geometry.size)
                     }
+            } else {
+                LegacyMeterGradient(colors: colors, geometry: geometry)
             }
+            #endif
         }
         .aspectRatio(1, contentMode: .fit)
     }
@@ -94,9 +108,9 @@ struct GaugeMeter : View {
                 startAngle: .degrees(startAngle),
                 endAngle: .degrees(endAngle)
             )
-#if !os(visionOS)
+            #if !os(visionOS)
             .widgetAccentable()
-#endif
+            #endif
             .mask(
                 GaugeMask(
                     trimStart: trimStart,
@@ -105,7 +119,6 @@ struct GaugeMeter : View {
                 )
             )
             .rotationEffect(Angle(degrees: 90))
-            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 0)
         }
     }
     
@@ -147,7 +160,6 @@ struct GaugeMeter : View {
                 )
             )
             .rotationEffect(Angle(degrees: 90))
-            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 0)
         }
     }
 }
@@ -173,22 +185,6 @@ private struct GaugeMask: View {
                 lineCap: .round)
             )
             .padding(CGFloat(meterThickness/2))
-    }
-}
-
-extension View {
-    @inlinable
-    func reverseMask<Mask: View>(
-        alignment: Alignment = .center,
-        @ViewBuilder _ mask: () -> Mask
-    ) -> some View {
-        self.mask {
-            Rectangle()
-                .overlay(alignment: alignment) {
-                    mask()
-                        .blendMode(.destinationOut)
-                }
-        }
     }
 }
 

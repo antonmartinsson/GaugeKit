@@ -18,6 +18,16 @@ public extension View {
     func gaugeBackTint(_ color: Color) -> some View {
         modifier(BackTint(color: color))
     }
+    
+    func reverseMask<Mask: View>(alignment: Alignment = .center, @ViewBuilder _ mask: () -> Mask) -> some View {
+        self.mask {
+            Rectangle()
+                .overlay(alignment: alignment) {
+                    mask()
+                        .blendMode(.destinationOut)
+                }
+        }
+    }
 }
 
 struct ValueLabelColor: ViewModifier {
@@ -59,6 +69,6 @@ struct BackTint: ViewModifier {
 extension EnvironmentValues {
     @Entry var valueLabelColor: Color? = nil
     @Entry var titleLabelColor: Color? = nil
-    @Entry var indicatorColor: Color = CrossPlatform.systemBackgroundColor
+    @Entry var indicatorColor: Color? = nil
     @Entry var backTintColor: Color = CrossPlatform.systemLabelColor
 }

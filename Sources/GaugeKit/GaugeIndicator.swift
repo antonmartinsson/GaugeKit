@@ -29,18 +29,25 @@ struct GaugeIndicator: View {
         
         if let placement = angle {
             ZStack {
-                Circle()
-                    .stroke(lineWidth: lineWidth)
-                    .scaleAndPlaceIndicator(withGaugeSize: size)
-                    .rotationEffect(Angle(degrees: 126))
-                    .rotationEffect(placement, anchor: .center)
-                    .foregroundStyle(indicatorColor)
-                    #if !os(visionOS)
-                    .shadow(color: .black.opacity(renderingMode == .accented ? 0 : 0.2), radius: 2)
-                    #else
-                    .shadow(color: .black.opacity(0.2), radius: 2)
-                    #endif
-                    .compositingGroup()
+                if let indicatorColor {
+                    Circle()
+                        .stroke(lineWidth: lineWidth)
+                        .scaleAndPlaceIndicator(withGaugeSize: size)
+                        .rotationEffect(Angle(degrees: 126))
+                        .rotationEffect(placement, anchor: .center)
+                        .foregroundStyle(indicatorColor)
+                        #if !os(visionOS)
+                        .shadow(color: .black.opacity(renderingMode == .accented ? 0 : 0.2), radius: 2)
+                        #else
+                        .shadow(color: .black.opacity(0.2), radius: 2)
+                        #endif
+                } else {
+                    Circle()
+                        .stroke(lineWidth: lineWidth)
+                        .scaleAndPlaceIndicator(withGaugeSize: size)
+                        .rotationEffect(Angle(degrees: 126))
+                        .rotationEffect(placement, anchor: .center)
+                }
                 Circle()
                     .strokeBorder(lineWidth: 1)
                     .scaleAndPlaceIndicator(withGaugeSize: size, stroke: true)
@@ -70,12 +77,21 @@ struct LegacyGaugeIndicator: View {
         
         if let placement = angle {
             ZStack {
-                Circle()
-                    .stroke(lineWidth: lineWidth)
-                    .scaleAndPlaceIndicator(withGaugeSize: size)
-                    .rotationEffect(Angle(degrees: 126))
-                    .rotationEffect(placement, anchor: .center)
-                    .foregroundStyle(indicatorColor)
+                if let indicatorColor {
+                    Circle()
+                        .stroke(lineWidth: lineWidth)
+                        .scaleAndPlaceIndicator(withGaugeSize: size)
+                        .rotationEffect(Angle(degrees: 126))
+                        .rotationEffect(placement, anchor: .center)
+                        .foregroundStyle(indicatorColor)
+                        .shadow(color: .black.opacity(0.2), radius: 2)
+                } else {
+                    Circle()
+                        .stroke(lineWidth: lineWidth)
+                        .scaleAndPlaceIndicator(withGaugeSize: size)
+                        .rotationEffect(Angle(degrees: 126))
+                        .rotationEffect(placement, anchor: .center)
+                }
                 Circle()
                     .strokeBorder(lineWidth: 1)
                     .scaleAndPlaceIndicator(withGaugeSize: size, stroke: true)
