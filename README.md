@@ -67,24 +67,29 @@ Finally, if you're feeling like you don't need any built in text elements, you c
 GaugeView(colors: [.red, .orange, .yellow, .green])
 ```
 
-Should you have the need to control the colors of the indicator or the text within the gauge, there are four view modifiers you can use to do so.
+Should you have the need to customize some of the elements in the Gauge, there are some view modifiers to help you do so.
 
 ```swift
 
 // To control the color of the indicator.
 .gaugeIndicatorColor(.blue)
 
+By default, the indicator is a cutout of the mater, but setting a specific color will instead layer it above the meter.
+
 // To control the color of the text visible when the gauge is flipped around.
 .gaugeBackTint(.yellow)
+
+// To add a shadow to the meter.
+.gaugeIndicatorColor(color: .black.opacity(0.33), radius: 5)
 ```
 
 ## Roadmap
 
-While I don't have many concrete plans for GaugeKit at the moment, I do plan to fiddle around with it and improve it best I can from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here [on Twitter](https://twitter.com/ntonmartinsson).
+While I don't have many concrete plans for GaugeKit at the moment, I do plan to fiddle around with it and improve it best I can from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here [on Twitter](https://x.com/ntonmartinsson).
 
 ## Apps using GaugeKit
 
-[Cryptoverview](https://apps.apple.com/se/app/cryptoverview/id1578673077?l=en-GB), by [yours truly](https://twitter.com/ntonmartinsson)!
+[Cryptoverview](https://apps.apple.com/se/app/cryptoverview/id1578673077?l=en-GB), by [yours truly](https://x.com/ntonmartinsson)!
 
 [MecaTest](https://apps.apple.com/se/app/mecatest/id6447468608?l=en-GB), by Jean-François Denniel.
 
@@ -92,4 +97,4 @@ While I don't have many concrete plans for GaugeKit at the moment, I do plan to 
 
 ## Using GaugeKit in your project?
 
-Are you using GuageKit in one of your projects? Please message me and tell me about it on [Twitter](https://www.twitter.com/ntonmartinsson) or by emailing me using the form over at [antonmartinsson.com](https://www.antonmartinsson.com). I'd love to see what you create with it!
+Are you using GuageKit in one of your projects? Please message me and tell me about it on [Twitter](https://www.x.com/ntonmartinsson), and I'll add it to the list above!
