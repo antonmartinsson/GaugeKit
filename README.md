@@ -71,12 +71,13 @@ GaugeView(colors: [.red, .orange, .yellow, .green])
 Should you have the need to customize some of the elements in the Gauge, there are some view modifiers to help you do so.
 
 ```swift
-
 // To control the color of the indicator.
 .gaugeIndicatorColor(.blue)
+```
 
-By default, the indicator is a cutout of the mater, but setting a specific color will instead layer it above the meter.
+By default, the indicator is a cutout of the meter, but setting a specific color will instead layer it above the meter.
 
+```swift
 // To control the color of the text visible when the gauge is flipped around.
 .gaugeBackTint(.yellow)
 
