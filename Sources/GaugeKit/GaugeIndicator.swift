@@ -34,7 +34,7 @@ struct GaugeIndicator: View {
                     .scaleAndPlaceIndicator(withGaugeSize: size)
                     .rotationEffect(Angle(degrees: 126))
                     .rotationEffect(placement, anchor: .center)
-                    .foregroundStyle(indicatorColor)
+                    .foregroundStyle(.background)
                     #if !os(visionOS)
                     .shadow(color: .black.opacity(renderingMode == .accented ? 0 : 0.2), radius: 2)
                     #else
