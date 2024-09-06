@@ -13,9 +13,9 @@ import WidgetKit
  The circular meter of the gauge view.
  
  - Parameters:
-    - value: An integer between 0 and 100 displayed inside the gauge, which also determines the position of the gauge's indicator.
-    - colors: The colors that should be used in the gradient that wipes across the gauge.
-    - maxValue: The value the gauge should top out at.
+ - value: An integer between 0 and 100 displayed inside the gauge, which also determines the position of the gauge's indicator.
+ - colors: The colors that should be used in the gradient that wipes across the gauge.
+ - maxValue: The value the gauge should top out at.
  */
 
 struct GaugeMeter : View {
@@ -50,14 +50,14 @@ struct GaugeMeter : View {
         GeometryReader { geometry in
             if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
                 MeterGradient(colors: colors, geometry: geometry)
+                    .reverseMask {
+                        GaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                    }
             } else {
                 LegacyMeterGradient(colors: colors, geometry: geometry)
-            }
-            
-            if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *), let indicatorAngle {
-                GaugeIndicator(angle: indicatorAngle, size: geometry.size)
-            } else if let indicatorAngle {
-                LegacyGaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                    .reverseMask {
+                        LegacyGaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                    }
             }
         }
         .aspectRatio(1, contentMode: .fit)
@@ -94,9 +94,9 @@ struct GaugeMeter : View {
                 startAngle: .degrees(startAngle),
                 endAngle: .degrees(endAngle)
             )
-            #if !os(visionOS)
+#if !os(visionOS)
             .widgetAccentable()
-            #endif
+#endif
             .mask(
                 GaugeMask(
                     trimStart: trimStart,
@@ -152,13 +152,13 @@ struct GaugeMeter : View {
     }
 }
 
-/** 
+/**
  A circular view used as a mask over the angular gradient of the GaugeMeter.
  
  - Parameters:
-    - trimStart: A double between 0 and 1 that determines where the meter should begin.
-    - trimEnd: A double between 0 and 1 that determines where the meter should end.
-    - meterThickness: The thickness of the gauge meter.
+ - trimStart: A double between 0 and 1 that determines where the meter should begin.
+ - trimEnd: A double between 0 and 1 that determines where the meter should end.
+ - meterThickness: The thickness of the gauge meter.
  */
 private struct GaugeMask: View {
     let trimStart: Double
@@ -173,6 +173,22 @@ private struct GaugeMask: View {
                 lineCap: .round)
             )
             .padding(CGFloat(meterThickness/2))
+    }
+}
+
+extension View {
+    @inlinable
+    func reverseMask<Mask: View>(
+        alignment: Alignment = .center,
+        @ViewBuilder _ mask: () -> Mask
+    ) -> some View {
+        self.mask {
+            Rectangle()
+                .overlay(alignment: alignment) {
+                    mask()
+                        .blendMode(.destinationOut)
+                }
+        }
     }
 }
 
