@@ -21,7 +21,7 @@ struct GaugeIndicator: View {
     let size: CGSize
     
     var body: some View {
-        let lineWidth = size.width / 20
+        let lineWidth = size.width / 17.5
         
         if let placement = angle {
             ZStack {
