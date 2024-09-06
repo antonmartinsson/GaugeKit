@@ -76,7 +76,7 @@ public struct GaugeView : View {
 #Preview {
     GaugeView(
         title: "Speed",
-        value: 100,
+        value: 88,
         colors: [.red, .orange, .yellow, .green],
         additionalInfo: .init(
             strap: "This is the top title",
@@ -84,4 +84,5 @@ public struct GaugeView : View {
             body: "Hejsan svejsan")
     )
     .padding()
+    .meterShadow(color: .black.opacity(0.2), radius: 8)
 }
