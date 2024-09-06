@@ -10,7 +10,7 @@ import SwiftUI
 final class CrossPlatform {
     static func systemBackgroundColor() -> Color {
         #if os(macOS)
-        Color(NSColor.windowBackgroundColor)
+        Color.primary
         #elseif os(iOS)
         Color(UIColor.systemBackground)
         #elseif os(visionOS)

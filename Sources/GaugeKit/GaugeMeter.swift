@@ -53,17 +53,21 @@ struct GaugeMeter : View {
                     .overlay {
                         if let indicatorAngle, indicatorColor == nil {
                             GaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                                .foregroundStyle(.background)
                                 .blendMode(.destinationOut)
                         }
                     }
+                    .compositingGroup()
             } else {
                 LegacyMeterGradient(colors: colors, geometry: geometry)
                     .overlay {
                         if let indicatorAngle, indicatorColor == nil {
                             GaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                                .foregroundStyle(.background)
                                 .blendMode(.destinationOut)
                         }
                     }
+                    .compositingGroup()
             }
             
             if let indicatorAngle, indicatorColor != nil {
