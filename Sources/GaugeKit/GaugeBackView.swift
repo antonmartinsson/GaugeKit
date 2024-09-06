@@ -34,7 +34,7 @@ public struct GaugeAdditionalInfo {
     - additionalInfo: The info to display within the view.
  */
 struct GaugeBackView: View {
-    @Environment(\.backTintColor) var backTintColor
+    @Environment(\.backTintColor) private var backTintColor
     
     @Binding var flipped: Bool
     let additionalInfo: GaugeAdditionalInfo

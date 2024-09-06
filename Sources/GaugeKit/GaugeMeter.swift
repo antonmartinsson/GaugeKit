@@ -19,6 +19,8 @@ import WidgetKit
  */
 
 struct GaugeMeter : View {
+    @Environment(\.indicatorColor) private var indicatorColor
+    
     let value: Int?
     let colors: [Color]
     let maxValue: Int?
@@ -48,11 +50,23 @@ struct GaugeMeter : View {
         GeometryReader { geometry in
             if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
                 MeterGradient(colors: colors, geometry: geometry)
+                    .overlay {
+                        if let indicatorAngle, indicatorColor == nil {
+                            GaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                                .blendMode(.destinationOut)
+                        }
+                    }
             } else {
                 LegacyMeterGradient(colors: colors, geometry: geometry)
+                    .overlay {
+                        if let indicatorAngle, indicatorColor == nil {
+                            GaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                                .blendMode(.destinationOut)
+                        }
+                    }
             }
             
-            if let indicatorAngle {
+            if let indicatorAngle, indicatorColor != nil {
                 GaugeIndicator(angle: indicatorAngle, size: geometry.size)
             }
         }
@@ -94,7 +108,9 @@ struct GaugeMeter : View {
                 startAngle: .degrees(startAngle),
                 endAngle: .degrees(endAngle)
             )
+            #if !os(visionOS)
             .widgetAccentable()
+            #endif
             .mask(
                 GaugeMask(
                     trimStart: trimStart,

@@ -16,8 +16,8 @@ import SwiftUI
     - title: A title to be displayed below the value.
  */
 struct GaugeLabelStack: View {
-    @Environment(\.valueLabelColor) var valueColor
-    @Environment(\.titleLabelColor) var titleColor
+    @Environment(\.valueLabelColor) private var valueColor
+    @Environment(\.titleLabelColor) private var titleColor
     
     let value: Int?
     let title: String?

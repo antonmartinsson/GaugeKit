@@ -15,23 +15,31 @@ import SwiftUI
     - size: The size of the gauge being displayed.
  */
 struct GaugeIndicator: View {
-    @Environment(\.indicatorColor) var indicatorColor
+    @Environment(\.indicatorColor) private var indicatorColor
     
-    var angle: Angle?
-    var size: CGSize
+    let angle: Angle?
+    let size: CGSize
     
     var body: some View {
         let lineWidth = size.width / 20
         
         if let placement = angle {
             ZStack {
-                Circle()
-                    .stroke(lineWidth: lineWidth)
-                    .scaleAndPlaceIndicator(withGaugeSize: size)
-                    .rotationEffect(Angle(degrees: 126))
-                    .rotationEffect(placement, anchor: .center)
-                    .foregroundStyle(indicatorColor)
-                    .shadow(color: .black.opacity(0.2), radius: 2)
+                if let indicatorColor {
+                    Circle()
+                        .stroke(lineWidth: lineWidth)
+                        .scaleAndPlaceIndicator(withGaugeSize: size)
+                        .rotationEffect(Angle(degrees: 126))
+                        .rotationEffect(placement, anchor: .center)
+                        .foregroundStyle(indicatorColor)
+                        .shadow(color: .black.opacity(0.2), radius: 2)
+                } else {
+                    Circle()
+                        .stroke(lineWidth: lineWidth)
+                        .scaleAndPlaceIndicator(withGaugeSize: size)
+                        .rotationEffect(Angle(degrees: 126))
+                        .rotationEffect(placement, anchor: .center)
+                }
                 Circle()
                     .strokeBorder(lineWidth: 1)
                     .scaleAndPlaceIndicator(withGaugeSize: size, stroke: true)
@@ -56,10 +64,10 @@ private struct IndicatorPlacement: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .padding(stroke ? size.width / 5.72 : size.width / 5)
+            .padding(stroke ? size.width / 5.75 : size.width / 5)
             .frame(width: size.width / 2, height: size.height / 2)
             .position(x: size.width / 2, y: size.height / 2)
-            .offset(x: size.width / 2.25)
+            .offset(x: size.width / (20 / 9))
     }
 }
 
