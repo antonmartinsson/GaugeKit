@@ -33,7 +33,8 @@ To create a basic Gauge is as simple as providing it with a title, an integer va
 GaugeView(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green])
 ```
 
-![alt text](https://i.imgur.com/iXPEpmm.png)
+![Gauge](https://raw.githubusercontent.com/antonmartinsson/GaugeKit/3.0/.github/images/gauge_light.png#gh-light-mode-only)
+![Gauge](https://raw.githubusercontent.com/antonmartinsson/GaugeKit/3.0/.github/images/gauge_dark.png#gh-dark-mode-only)
 
 A basic gauge like this will default to 100 for its max value. You can also explicitely set the max value of the gauge to a custom value. The following initialization will create a gauge that maxes out at 1000 instead of 100.  
 
@@ -70,12 +71,13 @@ GaugeView(colors: [.red, .orange, .yellow, .green])
 Should you have the need to customize some of the elements in the Gauge, there are some view modifiers to help you do so.
 
 ```swift
-
 // To control the color of the indicator.
 .gaugeIndicatorColor(.blue)
+```
 
-By default, the indicator is a cutout of the mater, but setting a specific color will instead layer it above the meter.
+By default, the indicator is a cutout of the meter, but setting a specific color will instead layer it above the meter.
 
+```swift
 // To control the color of the text visible when the gauge is flipped around.
 .gaugeBackTint(.yellow)
 
