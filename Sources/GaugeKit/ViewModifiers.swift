@@ -20,7 +20,7 @@ public extension View {
         modifier(BackTint(color: color))
     }
     
-    func meterShadow(color: Color = .black.opacity(0.33), radius: Double, x: Double = 0, y: Double = 0) -> some View {
+    func gaugeMeterShadow(color: Color = .black.opacity(0.33), radius: Double, x: Double = 0, y: Double = 0) -> some View {
         modifier(MeterShadow(shadow: Shadow(color: color, radius: radius, x: x, y: y)))
     }
     

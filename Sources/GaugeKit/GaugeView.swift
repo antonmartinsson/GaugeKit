@@ -84,5 +84,5 @@ public struct GaugeView : View {
             body: "Hejsan svejsan")
     )
     .padding()
-    .meterShadow(color: .black.opacity(0.2), radius: 8)
+    .gaugeMeterShadow(color: .black.opacity(0.2), radius: 8)
 }
