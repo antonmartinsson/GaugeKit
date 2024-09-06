@@ -19,6 +19,7 @@ import WidgetKit
  - maxValue: The value the gauge should top out at.
  */
 struct GaugeMeter : View {
+    @Environment(\.meterShadow) private var shadow
     @Environment(\.indicatorColor) private var indicatorColor
     
     let value: Int?
@@ -75,12 +76,16 @@ struct GaugeMeter : View {
             #endif
         }
         .aspectRatio(1, contentMode: .fit)
+        .shadow(
+            color: shadow?.color ?? .clear,
+            radius: shadow?.radius ?? 0,
+            x: shadow?.x ?? 0,
+            y: shadow?.y ?? 0
+        )
     }
     
     @available(iOS 16.0, macOS 13.0, watchOS 9.0, *)
     private struct MeterGradient: View {
-        @Environment(\.meterShadow) private var shadow
-        
         let colors: [Color]
         let geometry: GeometryProxy
         
@@ -121,18 +126,10 @@ struct GaugeMeter : View {
                 )
             )
             .rotationEffect(Angle(degrees: 90))
-            .shadow(
-                color: shadow?.color ?? .clear,
-                radius: shadow?.radius ?? 0,
-                x: shadow?.x ?? 0,
-                y: shadow?.y ?? 0
-            )
         }
     }
     
     private struct LegacyMeterGradient: View {
-        @Environment(\.meterShadow) private var shadow
-        
         let colors: [Color]
         let geometry: GeometryProxy
         
@@ -170,12 +167,6 @@ struct GaugeMeter : View {
                 )
             )
             .rotationEffect(Angle(degrees: 90))
-            .shadow(
-                color: shadow?.color ?? .clear,
-                radius: shadow?.radius ?? 0,
-                x: shadow?.x ?? 0,
-                y: shadow?.y ?? 0
-            )
         }
     }
 }
