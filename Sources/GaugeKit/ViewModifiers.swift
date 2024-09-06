@@ -19,6 +19,10 @@ public extension View {
         modifier(BackTint(color: color))
     }
     
+    func meterShadow(color: Color = .black.opacity(0.33), radius: Double, x: Double = 0, y: Double = 0) -> some View {
+        modifier(MeterShadow(shadow: Shadow(color: color, radius: radius, x: x, y: y)))
+    }
+    
     func reverseMask<Mask: View>(alignment: Alignment = .center, @ViewBuilder _ mask: () -> Mask) -> some View {
         self.mask {
             Rectangle()
@@ -66,9 +70,26 @@ struct BackTint: ViewModifier {
     }
 }
 
+struct MeterShadow: ViewModifier {
+    let shadow: Shadow
+    
+    func body(content: Content) -> some View {
+        content
+            .environment(\.meterShadow, shadow)
+    }
+}
+
+struct Shadow {
+    let color: Color
+    let radius: Double
+    let x: Double
+    let y: Double
+}
+
 extension EnvironmentValues {
     @Entry var valueLabelColor: Color? = nil
     @Entry var titleLabelColor: Color? = nil
     @Entry var indicatorColor: Color? = nil
     @Entry var backTintColor: Color = CrossPlatform.systemLabelColor
+    @Entry var meterShadow: Shadow? = nil
 }

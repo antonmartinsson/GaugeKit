@@ -79,6 +79,8 @@ struct GaugeMeter : View {
     
     @available(iOS 16.0, macOS 13.0, watchOS 9.0, *)
     private struct MeterGradient: View {
+        @Environment(\.meterShadow) private var shadow
+        
         let colors: [Color]
         let geometry: GeometryProxy
         
@@ -119,10 +121,18 @@ struct GaugeMeter : View {
                 )
             )
             .rotationEffect(Angle(degrees: 90))
+            .shadow(
+                color: shadow?.color ?? .clear,
+                radius: shadow?.radius ?? 0,
+                x: shadow?.x ?? 0,
+                y: shadow?.y ?? 0
+            )
         }
     }
     
     private struct LegacyMeterGradient: View {
+        @Environment(\.meterShadow) private var shadow
+        
         let colors: [Color]
         let geometry: GeometryProxy
         
@@ -160,6 +170,12 @@ struct GaugeMeter : View {
                 )
             )
             .rotationEffect(Angle(degrees: 90))
+            .shadow(
+                color: shadow?.color ?? .clear,
+                radius: shadow?.radius ?? 0,
+                x: shadow?.x ?? 0,
+                y: shadow?.y ?? 0
+            )
         }
     }
 }
