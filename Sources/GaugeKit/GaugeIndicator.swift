@@ -35,12 +35,13 @@ struct GaugeIndicator: View {
                     .rotationEffect(Angle(degrees: 126))
                     .rotationEffect(placement, anchor: .center)
                     .foregroundStyle(indicatorColor)
-                    .blendMode(.screen)
+                    .blendMode(.destinationOut)
                     #if !os(visionOS)
                     .shadow(color: .black.opacity(renderingMode == .accented ? 0 : 0.2), radius: 2)
                     #else
                     .shadow(color: .black.opacity(0.2), radius: 2)
                     #endif
+                    .compositingGroup()
                 Circle()
                     .strokeBorder(lineWidth: 1)
                     .scaleAndPlaceIndicator(withGaugeSize: size, stroke: true)
