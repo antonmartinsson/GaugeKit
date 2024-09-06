@@ -56,13 +56,10 @@ struct GaugeMeter : View {
             
             if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *), let indicatorAngle {
                 GaugeIndicator(angle: indicatorAngle, size: geometry.size)
-                    .blendMode(.destinationOut)
             } else if let indicatorAngle {
                 LegacyGaugeIndicator(angle: indicatorAngle, size: geometry.size)
-                    .blendMode(.destinationOut)
             }
         }
-        .compositingGroup()
         .aspectRatio(1, contentMode: .fit)
     }
     
