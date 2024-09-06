@@ -50,28 +50,14 @@ struct GaugeMeter : View {
         GeometryReader { geometry in
             if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
                 MeterGradient(colors: colors, geometry: geometry)
-                    .overlay {
-                        if let indicatorAngle, indicatorColor == nil {
-                            GaugeIndicator(angle: indicatorAngle, size: geometry.size)
-                                .foregroundStyle(.background)
-                                .blendMode(.destinationOut)
-                        }
-                    }
-                    .compositingGroup()
             } else {
                 LegacyMeterGradient(colors: colors, geometry: geometry)
-                    .overlay {
-                        if let indicatorAngle, indicatorColor == nil {
-                            GaugeIndicator(angle: indicatorAngle, size: geometry.size)
-                                .foregroundStyle(.background)
-                                .blendMode(.destinationOut)
-                        }
-                    }
-                    .compositingGroup()
             }
             
-            if let indicatorAngle, indicatorColor != nil {
+            if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *), let indicatorAngle {
                 GaugeIndicator(angle: indicatorAngle, size: geometry.size)
+            } else if let indicatorAngle {
+                LegacyGaugeIndicator(angle: indicatorAngle, size: geometry.size)
             }
         }
         .aspectRatio(1, contentMode: .fit)

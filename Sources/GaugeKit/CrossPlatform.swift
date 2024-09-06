@@ -8,7 +8,7 @@
 import SwiftUI
 
 final class CrossPlatform {
-    static func systemBackgroundColor() -> Color {
+    static var systemBackgroundColor: Color {
         #if os(macOS)
         Color.primary
         #elseif os(iOS)
@@ -20,7 +20,7 @@ final class CrossPlatform {
         #endif
     }
     
-    static func systemLabelColor() -> Color {
+    static var systemLabelColor: Color {
         #if os(macOS)
         Color(NSColor.labelColor)
         #elseif os(iOS)

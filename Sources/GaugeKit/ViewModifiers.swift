@@ -59,10 +59,6 @@ struct BackTint: ViewModifier {
 extension EnvironmentValues {
     @Entry var valueLabelColor: Color? = nil
     @Entry var titleLabelColor: Color? = nil
-    #if os(visionOS)
-    @Entry var indicatorColor: Color? = CrossPlatform.systemBackgroundColor()
-    #else
-    @Entry var indicatorColor: Color? = nil
-    #endif
-    @Entry var backTintColor: Color = CrossPlatform.systemLabelColor()
+    @Entry var indicatorColor: Color = CrossPlatform.systemBackgroundColor
+    @Entry var backTintColor: Color = CrossPlatform.systemLabelColor
 }
