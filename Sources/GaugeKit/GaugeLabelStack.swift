@@ -31,12 +31,19 @@ struct GaugeLabelStack: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                if let value, let valueColor {
+                if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *), let value, let valueColor {
                     ValueView(
                         value: value,
                         fontSize: smallestDimension(for: geometry) / 4
                     )
                     .foregroundStyle(valueColor)
+                    .frame(maxWidth: geometry.size.width * 0.8)
+                } else if let value, let valueColor {
+                    ValueView(
+                        value: value,
+                        fontSize: smallestDimension(for: geometry) / 4
+                    )
+                    .foregroundColor(valueColor)
                     .frame(maxWidth: geometry.size.width * 0.8)
                 } else if let value {
                     ValueView(
@@ -45,13 +52,20 @@ struct GaugeLabelStack: View {
                     )
                     .frame(maxWidth: geometry.size.width * 0.8)
                 }
-                if let title, let titleColor {
+                if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *), let title, let titleColor {
                     TitleView(
                         string: title,
                         fontSize: smallestDimension(for: geometry) / 12
                     )
                     .foregroundStyle(titleColor)
                     .frame(maxWidth: geometry.size.width / 2)
+                } else if let value, let valueColor {
+                    ValueView(
+                        value: value,
+                        fontSize: smallestDimension(for: geometry) / 4
+                    )
+                    .foregroundColor(valueColor)
+                    .frame(maxWidth: geometry.size.width * 0.8)
                 } else if let title {
                     TitleView(
                         string: title,
@@ -70,17 +84,10 @@ struct GaugeLabelStack: View {
         let fontSize: Double
         
         var body: some View {
-            if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
-                Text("\(value)")
-                  .fontWeight(.bold)
-                  .font(.system(size: fontSize))
-                  .lineLimit(1)
-            } else {
-                Text("\(value)")
-                  .fontWeight(.bold)
-                  .font(.system(size: fontSize))
-                  .lineLimit(1)
-            }
+            Text("\(value)")
+              .fontWeight(.bold)
+              .font(.system(size: fontSize))
+              .lineLimit(1)
         }
     }
     
@@ -89,17 +96,10 @@ struct GaugeLabelStack: View {
         let fontSize: Double
         
         var body: some View {
-            if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
-                Text(string)
-                    .fontWeight(.light)
-                    .font(.system(size: fontSize))
-                    .multilineTextAlignment(.center)
-            } else {
-                Text(string)
-                    .fontWeight(.light)
-                    .font(.system(size: fontSize))
-                    .multilineTextAlignment(.center)
-            }
+            Text(string)
+                .fontWeight(.light)
+                .font(.system(size: fontSize))
+                .multilineTextAlignment(.center)
         }
     }
 }

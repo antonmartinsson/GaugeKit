@@ -53,7 +53,7 @@ struct GaugeIndicator: View {
                     .scaleAndPlaceIndicator(withGaugeSize: size, stroke: true)
                     .rotationEffect(Angle(degrees: 126))
                     .rotationEffect(placement, anchor: .center)
-                    .foregroundColor(.white.opacity(0.5))
+                    .foregroundStyle(.white.opacity(0.5))
             }
         }
     }
@@ -83,7 +83,7 @@ struct LegacyGaugeIndicator: View {
                         .scaleAndPlaceIndicator(withGaugeSize: size)
                         .rotationEffect(Angle(degrees: 126))
                         .rotationEffect(placement, anchor: .center)
-                        .foregroundStyle(indicatorColor)
+                        .foregroundColor(indicatorColor)
                         .shadow(color: .black.opacity(0.2), radius: 2)
                 } else {
                     Circle()
