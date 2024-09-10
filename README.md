@@ -42,7 +42,31 @@ A basic gauge like this will default to 100 for its max value. You can also expl
 GaugeView(title: "Speed", value: 100, maxValue: 1000, colors: [.red, .orange, .yellow, .green])
 ```
 
-Additionally, as space for additional information is quite limited within the gauge, you can initialize a gauge with some additional information using three different (optional) strings. This information will be revealed to the user with a quick flip animation when a tap on the gauge view is recorded.   
+Additionally, if you're feeling like you don't need any built in text elements, you could create a gauge without a title or value (or any additional info), like this:  
+
+```swift
+GaugeView(colors: [.red, .orange, .yellow, .green])
+```
+
+Should you have the need to customize some of the elements in the Gauge, there are some view modifiers to help you do so. 
+
+### Indicator color
+
+To control the color of the gauge indicator, use the modifier below. By default, the indicator is a cutout of the meter, but setting a specific color will instead layer it above the meter.
+
+```swift
+.gaugeIndicatorColor(.blue)
+```
+
+### Shadow
+
+To add a shadow to the gauge meter (not including the text within the gauge), use the following modifier.
+
+```swift
+.gaugeMeterShadow(color: .black.opacity(0.2), radius: 5)
+```
+
+Finally, as space for additional information is quite limited within the gauge, you can initialize a gauge with some additional information using three different (optional) strings. This information will be revealed to the user with a quick flip animation when a tap on the gauge view is recorded.   
 
 ```swift
 let strap = "This is a semi-clever reference."
@@ -62,27 +86,9 @@ let additionalInfo = GaugeAdditionalInfo(strap: strap, title: nil, body: nil)
 GaugeView(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green], additionalInfo: additionalInfo)
 ```
 
-Finally, if you're feeling like you don't need any built in text elements, you could create a gauge without a title or value (or any additional info), like this:  
-
+You can control the tint of this back view with the following modifier.
 ```swift
-GaugeView(colors: [.red, .orange, .yellow, .green])
-```
-
-Should you have the need to customize some of the elements in the Gauge, there are some view modifiers to help you do so.
-
-```swift
-// To control the color of the indicator.
-.gaugeIndicatorColor(.blue)
-```
-
-By default, the indicator is a cutout of the meter, but setting a specific color will instead layer it above the meter.
-
-```swift
-// To control the color of the text visible when the gauge is flipped around.
 .gaugeBackTint(.yellow)
-
-// To add a shadow to the meter.
-.gaugeIndicatorColor(color: .black.opacity(0.33), radius: 5)
 ```
 
 ## Roadmap
