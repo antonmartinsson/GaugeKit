@@ -20,7 +20,7 @@ let package = Package(
 
 ## Requirements
 
-GaugeKit is built with SwiftUI, and the minimum requirement to use the latest version is that your project (or the views you're creating with it) has a deployment target set to iOS 15 / macOS 12 / watchOS 8 or later. 
+GaugeKit is built with SwiftUI, and the minimum requirement to use the latest version is that your project (or the views you're creating with it) has a deployment target set to iOS 13 / macOS 11 / watchOS 6 or later. 
 
 To use it in a UIKit project, use a [UIHostingController](https://developer.apple.com/documentation/swiftui/uihostingcontroller).\
 To use it in an AppKit project, use a [NSHostingController](https://developer.apple.com/documentation/swiftui/nshostingcontroller) or [NSHostingView](https://developer.apple.com/documentation/swiftui/nshostingview).
