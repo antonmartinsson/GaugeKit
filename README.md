@@ -48,8 +48,6 @@ Additionally, if you're feeling like you don't need any built in text elements, 
 GaugeView(colors: [.red, .orange, .yellow, .green])
 ```
 
----
-
 Should you have the need to customize some of the elements in the Gauge, there are some view modifiers to help you do so. 
 
 ### Indicator color
