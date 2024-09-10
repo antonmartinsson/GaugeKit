@@ -48,6 +48,8 @@ Additionally, if you're feeling like you don't need any built in text elements, 
 GaugeView(colors: [.red, .orange, .yellow, .green])
 ```
 
+---
+
 Should you have the need to customize some of the elements in the Gauge, there are some view modifiers to help you do so. 
 
 ### Indicator color
@@ -65,6 +67,8 @@ To add a shadow to the gauge meter (not including the text within the gauge), us
 ```swift
 .gaugeMeterShadow(color: .black.opacity(0.2), radius: 5)
 ```
+
+---
 
 Finally, as space for additional information is quite limited within the gauge, you can initialize a gauge with some additional information using three different (optional) strings. This information will be revealed to the user with a quick flip animation when a tap on the gauge view is recorded.   
 
