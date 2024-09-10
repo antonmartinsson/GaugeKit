@@ -45,6 +45,24 @@ struct GaugeBackView: View {
     
     var body: some View {
         GeometryReader { geometry in
+            if #available(iOS 15.0, macOS 12.0, watchOS 8.0, *) {
+                StringStack(geometry: geometry, additionalInfo: additionalInfo)
+                    .foregroundStyle(backTintColor)
+            } else {
+                StringStack(geometry: geometry, additionalInfo: additionalInfo)
+                    .foregroundColor(backTintColor)
+            }
+        }
+        .opacity(flipped ? 1 : 0)
+        .rotation3DEffect(flipAngle, axis: (x: 0, y: 1, z: 0))
+        .rotation3DEffect(Angle(degrees: 180), axis: (x: 0, y: 1, z: 0))
+    }
+    
+    private struct StringStack: View {
+        let geometry: GeometryProxy
+        let additionalInfo: GaugeAdditionalInfo
+        
+        var body: some View {
             VStack {
                 if let strap = additionalInfo.strap {
                     Text(strap)
@@ -60,12 +78,8 @@ struct GaugeBackView: View {
                         .font(.system(size: geometry.size.width / 20, weight: .regular))
                 }
             }
-            .foregroundStyle(backTintColor)
             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
         }
-        .opacity(flipped ? 1 : 0)
-        .rotation3DEffect(flipAngle, axis: (x: 0, y: 1, z: 0))
-        .rotation3DEffect(Angle(degrees: 180), axis: (x: 0, y: 1, z: 0))
     }
 }
 

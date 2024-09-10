@@ -24,6 +24,7 @@ public extension View {
         modifier(MeterShadow(shadow: Shadow(color: color, radius: radius, x: x, y: y)))
     }
     
+    @available(iOS 15.0, macOS 12.0, watchOS 8.0, *)
     func reverseMask<Mask: View>(alignment: Alignment = .center, @ViewBuilder _ mask: () -> Mask) -> some View {
         self.mask {
             Rectangle()

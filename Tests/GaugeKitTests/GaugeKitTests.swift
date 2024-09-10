@@ -1,6 +1,7 @@
 import XCTest
 @testable import GaugeKit
 
+@MainActor
 final class GaugeKitTests: XCTestCase {
     func testTitle() {
         let gauge = GaugeView(title: "A title", value: 100, colors: [.red, .green])

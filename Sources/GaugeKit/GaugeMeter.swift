@@ -67,9 +67,9 @@ struct GaugeMeter : View {
                     }
             } else if indicatorColor != nil {
                 LegacyMeterGradient(colors: colors, geometry: geometry)
-                    .overlay {
+                    .overlay(
                         LegacyGaugeIndicator(angle: indicatorAngle, size: geometry.size)
-                    }
+                    )
             } else {
                 LegacyMeterGradient(colors: colors, geometry: geometry)
             }
