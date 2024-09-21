@@ -1,93 +1,97 @@
 import SwiftUI
 
+@MainActor
 public extension View {
-  func gaugeValueColor(_ color: Color) -> some View {
-    modifier(ValueLabelColor(color: color))
-  }
-  
-  func gaugeTitleColor(_ color: Color) -> some View {
-    modifier(TitleLabelColor(color: color))
-  }
-  
-  func gaugeIndicatorColor(_ color: Color) -> some View {
-    modifier(IndicatorColor(color: color))
-  }
-  
-  func gaugeBackTint(_ color: Color) -> some View {
-    modifier(BackTint(color: color))
-  }
+    @available(*, deprecated, message: "Use a regular .foregroundStyle modifier instead")
+    func gaugeValueColor(_ color: Color) -> some View {
+        modifier(ValueLabelColor(color: color))
+    }
+    
+    @available(*, deprecated, message: "Use a regular .foregroundStyle modifier instead")
+    func gaugeTitleColor(_ color: Color) -> some View {
+        modifier(TitleLabelColor(color: color))
+    }
+    
+    func gaugeIndicatorColor(_ color: Color) -> some View {
+        modifier(IndicatorColor(color: color))
+    }
+    
+    func gaugeBackTint(_ color: Color) -> some View {
+        modifier(BackTint(color: color))
+    }
+    
+    func gaugeMeterShadow(color: Color = .black.opacity(0.33), radius: Double, x: Double = 0, y: Double = 0) -> some View {
+        modifier(MeterShadow(shadow: Shadow(color: color, radius: radius, x: x, y: y)))
+    }
+    
+    @available(iOS 15.0, macOS 12.0, watchOS 8.0, *)
+    func reverseMask<Mask: View>(alignment: Alignment = .center, @ViewBuilder _ mask: () -> Mask) -> some View {
+        self.mask {
+            Rectangle()
+                .overlay(alignment: alignment) {
+                    mask()
+                        .blendMode(.destinationOut)
+                }
+        }
+    }
 }
 
 struct ValueLabelColor: ViewModifier {
-  let color: Color
-  
-  func body(content: Content) -> some View {
-    content
-      .environment(\.valueLabelColor, color)
-  }
+    let color: Color
+    
+    func body(content: Content) -> some View {
+        content
+            .environment(\.valueLabelColor, color)
+    }
 }
 
 struct TitleLabelColor: ViewModifier {
-  let color: Color
-  
-  func body(content: Content) -> some View {
-    content
-      .environment(\.titleLabelColor, color)
-  }
+    let color: Color
+    
+    func body(content: Content) -> some View {
+        content
+            .environment(\.titleLabelColor, color)
+    }
 }
 
 struct IndicatorColor: ViewModifier {
-  let color: Color
-  
-  func body(content: Content) -> some View {
-    content
-      .environment(\.indicatorColor, color)
-  }
+    let color: Color
+    
+    func body(content: Content) -> some View {
+        content
+            .environment(\.indicatorColor, color)
+    }
 }
 
 struct BackTint: ViewModifier {
-  let color: Color
-  
-  func body(content: Content) -> some View {
-    content
-      .environment(\.backTintColor, color)
-  }
+    let color: Color
+    
+    func body(content: Content) -> some View {
+        content
+            .environment(\.backTintColor, color)
+    }
 }
 
-private struct ValueLabelColorKey: EnvironmentKey {
-  static let defaultValue: Color = CrossPlatform.systemLabelColor()
+struct MeterShadow: ViewModifier {
+    let shadow: Shadow
+    
+    func body(content: Content) -> some View {
+        content
+            .environment(\.meterShadow, shadow)
+    }
 }
 
-private struct TitleLabelColorKey: EnvironmentKey {
-  static let defaultValue: Color = CrossPlatform.systemLabelColor()
-}
-
-private struct IndicatorColorKey: EnvironmentKey {
-  static let defaultValue: Color = CrossPlatform.systemBackgroundColor()
-}
-
-private struct BackTintColorKey: EnvironmentKey {
-  static let defaultValue: Color = CrossPlatform.systemLabelColor()
+struct Shadow {
+    let color: Color
+    let radius: Double
+    let x: Double
+    let y: Double
 }
 
 extension EnvironmentValues {
-  var valueLabelColor: Color {
-    get { self[ValueLabelColorKey.self] }
-    set { self[ValueLabelColorKey.self] = newValue }
-  }
-  
-  var titleLabelColor: Color {
-    get { self[TitleLabelColorKey.self] }
-    set { self[TitleLabelColorKey.self] = newValue }
-  }
-  
-  var indicatorColor: Color {
-    get { self[IndicatorColorKey.self] }
-    set { self[IndicatorColorKey.self] = newValue }
-  }
-  
-  var backTintColor: Color {
-    get { self[BackTintColorKey.self] }
-    set { self[BackTintColorKey.self] = newValue }
-  }
+    @Entry var valueLabelColor: Color? = nil
+    @Entry var titleLabelColor: Color? = nil
+    @Entry var indicatorColor: Color? = nil
+    @Entry var backTintColor: Color = CrossPlatform.systemLabelColor
+    @Entry var meterShadow: Shadow? = nil
 }

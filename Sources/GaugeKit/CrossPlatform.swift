@@ -7,29 +7,28 @@
 
 import SwiftUI
 
-class CrossPlatform {
-  static func systemBackgroundColor() -> Color {
-#if os(macOS)
-    Color(NSColor.windowBackgroundColor)
-#elseif os(iOS)
-    Color(UIColor.systemBackground)
-#elseif os(visionOS)
-      Color.primary
-#elseif os(watchOS)
-    Color.black
-#endif
-  }
-  
-  static func systemLabelColor() -> Color {
-#if os(macOS)
-    Color(NSColor.labelColor)
-#elseif os(iOS)
-    Color(.label)
-#elseif os(visionOS)
-      Color(.label)
-#elseif os(watchOS)
-    Color.black
-#endif
-  }
+final class CrossPlatform {
+    static var systemBackgroundColor: Color {
+        #if os(macOS)
+        Color.primary
+        #elseif os(iOS)
+        Color(UIColor.systemBackground)
+        #elseif os(visionOS)
+        Color.primary
+        #elseif os(watchOS)
+        Color.black
+        #endif
+    }
+    
+    static var systemLabelColor: Color {
+        #if os(macOS)
+        Color(NSColor.labelColor)
+        #elseif os(iOS)
+        Color(.label)
+        #elseif os(visionOS)
+        Color(.label)
+        #elseif os(watchOS)
+        Color.black
+        #endif
+    }
 }
-

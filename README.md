@@ -10,17 +10,17 @@ To use GaugeKit in your project, simply add a Swift Package to your project usin
 ```swift
 
 let package = Package(
-	...
-	dependencies: [
-		.package(url: "https://github.com/antonmartinsson/gaugekit.git", from: "0.1.0")
-	],
-	...
+  ...
+  dependencies: [
+    .package(url: "https://github.com/antonmartinsson/gaugekit.git", from: "0.1.0")
+  ],
+  ...
 )
 ```
 
 ## Requirements
 
-GaugeKit is built with SwiftUI, and thus the minimum requirement to use it is that your project (or the views you're creating with it) has a deployment target set to iOS 13 / macOS 11 / watchOS 6 or later. 
+GaugeKit is built with SwiftUI, and the minimum requirement to use the latest version is that your project (or the views you're creating with it) has a deployment target set to iOS 13 / macOS 11 / watchOS 6 or later. 
 
 To use it in a UIKit project, use a [UIHostingController](https://developer.apple.com/documentation/swiftui/uihostingcontroller).\
 To use it in an AppKit project, use a [NSHostingController](https://developer.apple.com/documentation/swiftui/nshostingcontroller) or [NSHostingView](https://developer.apple.com/documentation/swiftui/nshostingview).
@@ -33,7 +33,8 @@ To create a basic Gauge is as simple as providing it with a title, an integer va
 GaugeView(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green])
 ```
 
-![alt text](https://i.imgur.com/iXPEpmm.png)
+![Gauge](https://raw.githubusercontent.com/antonmartinsson/GaugeKit/3.0/.github/images/gauge_light.png#gh-light-mode-only)
+![Gauge](https://raw.githubusercontent.com/antonmartinsson/GaugeKit/3.0/.github/images/gauge_dark.png#gh-dark-mode-only)
 
 A basic gauge like this will default to 100 for its max value. You can also explicitely set the max value of the gauge to a custom value. The following initialization will create a gauge that maxes out at 1000 instead of 100.  
 
@@ -41,7 +42,35 @@ A basic gauge like this will default to 100 for its max value. You can also expl
 GaugeView(title: "Speed", value: 100, maxValue: 1000, colors: [.red, .orange, .yellow, .green])
 ```
 
-Additionally, as space for additional information is quite limited within the gauge, you can initialize a gauge with some additional information using three different (optional) strings. This information will be revealed to the user with a quick flip animation when a tap on the gauge view is recorded.   
+Additionally, if you're feeling like you don't need any built in text elements, you could create a gauge without a title or value (or any additional info), like this:  
+
+```swift
+GaugeView(colors: [.red, .orange, .yellow, .green])
+```
+
+## Modifiers
+
+Should you have the need to customize some of the elements in the Gauge, there are some view modifiers to help you do so. 
+
+### Indicator color
+
+To control the color of the gauge indicator, use the modifier below. By default, the indicator is a cutout of the meter, but setting a specific color will instead layer it above the meter.
+
+```swift
+.gaugeIndicatorColor(.blue)
+```
+
+### Shadow
+
+To add a shadow to the gauge meter (not including the text within the gauge), use the following modifier.
+
+```swift
+.gaugeMeterShadow(color: .black.opacity(0.2), radius: 5)
+```
+
+---
+
+Finally, as space for additional information is quite limited within the gauge, you can initialize a gauge with some additional information using three different (optional) strings. This information will be revealed to the user with a quick flip animation when a tap on the gauge view is recorded.   
 
 ```swift
 let strap = "This is a semi-clever reference."
@@ -61,35 +90,18 @@ let additionalInfo = GaugeAdditionalInfo(strap: strap, title: nil, body: nil)
 GaugeView(title: "Speed", value: 88, colors: [.red, .orange, .yellow, .green], additionalInfo: additionalInfo)
 ```
 
-Finally, if you're feeling like you don't need any built in text elements, you could create a gauge without a title or value (or any additional info), like this:  
-
+You can control the tint of this back view with the following modifier.
 ```swift
-GaugeView(colors: [.red, .orange, .yellow, .green])
-```
-
-Should you have the need to control the colors of the indicator or the text within the gauge, there are four view modifiers you can use to do so.
-
-```swift
-// To control the color of the numbers in the center of the gauge.
-.gaugeValueColor(.blue)
-
-// To control the color of the title below the numbers in the center of the gauge.
-.gaugeTitleColor(.yellow)
-
-// To control the color of the indicator.
-.gaugeIndicatorColor(.blue)
-
-// To control the color of the text visible when the gauge is flipped around.
 .gaugeBackTint(.yellow)
 ```
 
 ## Roadmap
 
-While I don't have many concrete plans for GaugeKit at the moment, I do plan to fiddle around with it and improve it best I can from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here [on Twitter](https://twitter.com/ntonmartinsson).
+While I don't have many concrete plans for GaugeKit at the moment, I do plan to fiddle around with it and improve it best I can from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here [on Twitter](https://x.com/ntonmartinsson).
 
 ## Apps using GaugeKit
 
-[Cryptoverview](https://apps.apple.com/se/app/cryptoverview/id1578673077?l=en-GB), by [yours truly](https://twitter.com/ntonmartinsson)!
+[Cryptoverview](https://apps.apple.com/se/app/cryptoverview/id1578673077?l=en-GB), by [yours truly](https://x.com/ntonmartinsson)!
 
 [MecaTest](https://apps.apple.com/se/app/mecatest/id6447468608?l=en-GB), by Jean-François Denniel.
 
@@ -97,4 +109,4 @@ While I don't have many concrete plans for GaugeKit at the moment, I do plan to 
 
 ## Using GaugeKit in your project?
 
-Are you using GuageKit in one of your projects? Please message me and tell me about it on [Twitter](https://www.twitter.com/ntonmartinsson) or by emailing me using the form over at [antonmartinsson.com](https://www.antonmartinsson.com). I'd love to see what you create with it!
+Are you using GuageKit in one of your projects? Please message me and tell me about it on [Twitter](https://www.x.com/ntonmartinsson), and I'll add it to the list above!
