@@ -12,7 +12,7 @@ To use GaugeKit in your project, simply add a Swift Package to your project usin
 let package = Package(
   ...
   dependencies: [
-    .package(url: "https://github.com/antonmartinsson/gaugekit.git", from: "0.1.0")
+    .package(url: "https://github.com/antonmartinsson/gaugekit.git", from: "1.3.0")
   ],
   ...
 )
