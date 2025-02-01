@@ -7,125 +7,117 @@
 
 import SwiftUI
 
-/**
- The small circular indicator placed on top of the gauge to visualize it's current value.
- 
- - Parameters:
-    - angle: The angle at which to place the indicator on top of the gauge.
-    - size: The size of the gauge being displayed.
- */
 @available(iOS 16.0, macOS 13.0, watchOS 9.0, *)
 struct GaugeIndicator: View {
     #if !os(visionOS)
     @Environment(\.widgetRenderingMode) private var renderingMode
     #endif
     @Environment(\.indicatorColor) private var indicatorColor
+    @Environment(\.meterThickness) private var customMeterThickness
     
     let angle: Angle?
-    let size: CGSize
+    let frame: CGSize
     
     var body: some View {
-        let lineWidth = size.width / 20
+        let standardMeterThickness = frame.width / 10
+        let strokeThickness = (customMeterThickness ?? standardMeterThickness) / 2
         
         if let placement = angle {
             ZStack {
                 if let indicatorColor {
                     Circle()
-                        .stroke(lineWidth: lineWidth)
-                        .scaleAndPlaceIndicator(withGaugeSize: size)
+                        .stroke(lineWidth: strokeThickness)
+                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
                         .rotationEffect(Angle(degrees: 126))
                         .rotationEffect(placement, anchor: .center)
                         .foregroundStyle(indicatorColor)
                         #if !os(visionOS)
-                        .shadow(color: .black.opacity(renderingMode == .accented ? 0 : 0.2), radius: 2)
+                        .shadow(
+                            color: .black.opacity(renderingMode == .accented ? 0 : 0.2),
+                            radius: 2
+                        )
                         #else
                         .shadow(color: .black.opacity(0.2), radius: 2)
                         #endif
+                    Circle()
+                        .strokeBorder(lineWidth: 1)
+                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness, stroke: true)
+                        .rotationEffect(Angle(degrees: 126))
+                        .rotationEffect(placement, anchor: .center)
+                        .foregroundStyle(.white.opacity(0.5))
                 } else {
                     Circle()
-                        .stroke(lineWidth: lineWidth)
-                        .scaleAndPlaceIndicator(withGaugeSize: size)
+                        .stroke(lineWidth: strokeThickness)
+                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
                         .rotationEffect(Angle(degrees: 126))
                         .rotationEffect(placement, anchor: .center)
                 }
-                Circle()
-                    .strokeBorder(lineWidth: 1)
-                    .scaleAndPlaceIndicator(withGaugeSize: size, stroke: true)
-                    .rotationEffect(Angle(degrees: 126))
-                    .rotationEffect(placement, anchor: .center)
-                    .foregroundStyle(.white.opacity(0.5))
             }
         }
     }
 }
 
-/**
- The small circular indicator placed on top of the gauge to visualize it's current value.
- 
- - Parameters:
-    - angle: The angle at which to place the indicator on top of the gauge.
-    - size: The size of the gauge being displayed.
- */
 struct LegacyGaugeIndicator: View {
     @Environment(\.indicatorColor) private var indicatorColor
+    @Environment(\.meterThickness) private var customMeterThickness
     
     let angle: Angle?
-    let size: CGSize
+    let frame: CGSize
     
     var body: some View {
-        let lineWidth = size.width / 20
+        let standardMeterThickness = frame.width / 10
+        let strokeThickness = (customMeterThickness ?? standardMeterThickness) / 2
         
         if let placement = angle {
             ZStack {
                 if let indicatorColor {
                     Circle()
-                        .stroke(lineWidth: lineWidth)
-                        .scaleAndPlaceIndicator(withGaugeSize: size)
+                        .stroke(lineWidth: strokeThickness)
+                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
                         .rotationEffect(Angle(degrees: 126))
                         .rotationEffect(placement, anchor: .center)
                         .foregroundColor(indicatorColor)
                         .shadow(color: .black.opacity(0.2), radius: 2)
+                    Circle()
+                        .strokeBorder(lineWidth: 1)
+                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness, stroke: true)
+                        .rotationEffect(Angle(degrees: 126))
+                        .rotationEffect(placement, anchor: .center)
+                        .foregroundColor(.white.opacity(0.5))
                 } else {
                     Circle()
-                        .stroke(lineWidth: lineWidth)
-                        .scaleAndPlaceIndicator(withGaugeSize: size)
+                        .stroke(lineWidth: strokeThickness)
+                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
                         .rotationEffect(Angle(degrees: 126))
                         .rotationEffect(placement, anchor: .center)
                 }
-                Circle()
-                    .strokeBorder(lineWidth: 1)
-                    .scaleAndPlaceIndicator(withGaugeSize: size, stroke: true)
-                    .rotationEffect(Angle(degrees: 126))
-                    .rotationEffect(placement, anchor: .center)
-                    .foregroundColor(.white.opacity(0.5))
             }
         }
     }
 }
 
-/**
- A custom ViewModifier mainly created to declutter the amount of attributes on the indicator slightly.
- 
- - Parameters:
-    - size: The size of the gauge being displayed.
-    - stroke: Whether or not the view the modifier is being applied to is the stroke on the outside of the indicator.
- */
 private struct IndicatorPlacement: ViewModifier {
-    let size: CGSize
+    let frame: CGSize
+    let thickness: Double
     let stroke: Bool
     
     func body(content: Content) -> some View {
         content
-            .padding(stroke ? size.width / 5.75 : size.width / 5)
-            .frame(width: size.width / 2, height: size.height / 2)
-            .position(x: size.width / 2, y: size.height / 2)
-            .offset(x: size.width / (20 / 9))
+            .padding(stroke ? thickness / 2 : 0)
+            .frame(width: thickness * 1.75, height: thickness * 1.75)
+            .offset(x: (frame.width / 2) - (thickness))
     }
 }
 
 private extension View {
-    func scaleAndPlaceIndicator(withGaugeSize gaugeSize: CGSize, stroke: Bool = false) -> some View {
-        self.modifier(IndicatorPlacement(size: gaugeSize, stroke: stroke))
+    func scaleAndPlaceIndicator(
+        in frame: CGSize,
+        standardThickness: Double,
+        stroke: Bool = false
+    ) -> some View {
+        self.modifier(
+            IndicatorPlacement(frame: frame, thickness: standardThickness, stroke: stroke)
+        )
     }
 }
 
@@ -135,6 +127,5 @@ private extension View {
         value: 10,
         colors: [.red, .orange, .yellow, .green]
     )
-    .padding()
 }
 

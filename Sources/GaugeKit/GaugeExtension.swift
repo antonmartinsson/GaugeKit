@@ -16,13 +16,13 @@ extension GaugeView {
      Defaults the max value to 100.
      
      - Parameters:
-     - title: A short title that will be displayed in the center of the gauge, below its value.
-     - value: An integer between 0 and 100 to visualize using the gauge.
-     - colors: An array of Color instances to create the gauge's background gradient from..
+        - title: A short title that will be displayed in the center of the gauge, below its value.
+        - value: An integer between 0 and 100 to visualize using the gauge.
+        - colors: An array of Color instances to create the gauge's background gradient from..
      */
     public init(value: Int?, colors: [Color]) {
         self.title = nil
-        self.value = value
+        self.value = value.map(Double.init)
         self.maxValue = 100
         self.colors = colors
         self.additionalInfo = nil
@@ -33,13 +33,13 @@ extension GaugeView {
      Defaults the max value to 100.
      
      - Parameters:
-     - title: A short title that will be displayed in the center of the gauge, below its value.
-     - value: An integer between 0 and 100 to visualize using the gauge.
-     - colors: An array of Color instances to create the gauge's background gradient from..
+        - title: A short title that will be displayed in the center of the gauge, below its value.
+        - value: An integer between 0 and 100 to visualize using the gauge.
+        - colors: An array of Color instances to create the gauge's background gradient from..
      */
     public init(title: String?, value: Int?, colors: [Color]) {
         self.title = title
-        self.value = value
+        self.value = value.map(Double.init)
         self.maxValue = 100
         self.colors = colors
         self.additionalInfo = nil
@@ -51,14 +51,14 @@ extension GaugeView {
      Defaults the max value to 100.
      
      - Parameters:
-     - title: A short title that will be displayed in the center of the gauge, below its value.
-     - value: An integer between 0 and 100 to visualize using the gauge.
-     - colors: An array of Color instances to create the gauge's background gradient from..
-     - additionalInfo: A struct that contains three optional strings to display on the back of the gauge.
+        - title: A short title that will be displayed in the center of the gauge, below its value.
+        - value: An integer between 0 and 100 to visualize using the gauge.
+        - colors: An array of Color instances to create the gauge's background gradient from..
+        - additionalInfo: A struct that contains three optional strings to display on the back of the gauge.
      */
     public init(title: String?, value: Int?, colors: [Color], additionalInfo: GaugeAdditionalInfo) {
         self.title = title
-        self.value = value
+        self.value = value.map(Double.init)
         self.maxValue = 100
         self.colors = colors
         self.additionalInfo = additionalInfo
@@ -68,7 +68,7 @@ extension GaugeView {
      Initializes a very basic gauge without an indicator or title.
      
      - Parameters:
-     - colors: An array of Color instances to create the gauge's background gradient from..
+        - colors: An array of Color instances to create the gauge's background gradient from..
      */
     public init(colors: [Color]) {
         self.title = nil

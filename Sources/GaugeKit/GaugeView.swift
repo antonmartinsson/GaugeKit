@@ -13,18 +13,18 @@ import SwiftUI
  not too different from the native gauges used by Apple for some Apple Watch complications.
  
  - Parameters:
- - title: A decriptive string value to display inside the gauge.
- - value: An integer displayed inside the gauge, which also determines the position of the gauge's indicator.
- - maxValue: An integer value representing what the gauge should max out at. Defaults to nil if `value` is also nil, and to 100 if a `value` is set, but no explicit `maxValue`.
- - colors: The colors that should be used in the gradient that wipes across the gauge.
- - additionalInfo: A struct containing three (optional) strings to display when the user taps on the gauge.
+    - title: A decriptive string value to display inside the gauge.
+    - value: The value that determines the position of the gauge's indicator, which is also displayed inside the gauge.
+    - maxValue: A value representing what the gauge should max out at. Defaults to nil if `value` is also nil, and to 100 if a `value` is set.
+    - colors: The colors that should be used in the gradient that wipes across the gauge.
+    - additionalInfo: A struct containing three (optional) strings to display when the user taps on the gauge.
  */
 public struct GaugeView : View {
     @State private var flipped: Bool = false
     
     let title: String?
-    let value: Int?
-    let maxValue: Int?
+    let value: Double?
+    let maxValue: Double?
     let colors: [Color]
     let additionalInfo: GaugeAdditionalInfo?
     
@@ -32,6 +32,20 @@ public struct GaugeView : View {
         title: String? = nil,
         value: Int? = nil,
         maxValue: Int? = nil,
+        colors: [Color],
+        additionalInfo: GaugeAdditionalInfo? = nil
+    ) {
+        self.title = title
+        self.value = value.map(Double.init)
+        self.maxValue = maxValue.map(Double.init)
+        self.colors = colors
+        self.additionalInfo = additionalInfo
+    }
+    
+    public init(
+        title: String? = nil,
+        value: Double? = nil,
+        maxValue: Double? = nil,
         colors: [Color],
         additionalInfo: GaugeAdditionalInfo? = nil
     ) {
