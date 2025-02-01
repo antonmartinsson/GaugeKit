@@ -50,7 +50,7 @@ GaugeView(colors: [.red, .orange, .yellow, .green])
 
 ## Modifiers
 
-Should you have the need to customize some of the elements in the Gauge, there are some view modifiers to help you do so. 
+Should you have the need to customize some of the elements in the Gauge, there are several view modifiers to help you do so. 
 
 ### Indicator color
 
@@ -66,6 +66,24 @@ To add a shadow to the gauge meter (not including the text within the gauge), us
 
 ```swift
 .gaugeMeterShadow(color: .black.opacity(0.2), radius: 5)
+```
+
+### Thickness
+
+By default, the thickness of the gauge meter depends on the size of the container you put it in. To adjust it manually, you can use `.gaugeMeterThickness`.
+
+```swift
+.gaugeMeterThickness(30)
+```
+
+Please be aware that the look of the gauge can be broken using this modifier, if you scale it beyond the bounds of the view it inhabits. My recommendation is to use it carefully and seldomly.
+
+### Label visibility
+
+To hide the stack of labels within the gauge, use `.labelStackHidden`.
+
+```swift
+.labelStackHidden()
 ```
 
 ---
