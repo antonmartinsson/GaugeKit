@@ -28,6 +28,10 @@ public extension View {
         environment(\.meterThickness, thickness)
     }
     
+    func labelStackHidden() -> some View {
+        environment(\.labelsHidden, true)
+    }
+    
     @available(iOS 15.0, macOS 12.0, watchOS 8.0, *)
     func reverseMask<Mask: View>(alignment: Alignment = .center, @ViewBuilder _ mask: () -> Mask) -> some View {
         self.mask {
@@ -54,4 +58,5 @@ extension EnvironmentValues {
     @Entry var backTintColor: Color = CrossPlatform.systemLabelColor
     @Entry var meterShadow: Shadow? = nil
     @Entry var meterThickness: Double? = nil
+    @Entry var labelsHidden: Bool = false
 }

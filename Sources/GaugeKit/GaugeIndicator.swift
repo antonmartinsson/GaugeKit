@@ -15,43 +15,41 @@ struct GaugeIndicator: View {
     @Environment(\.indicatorColor) private var indicatorColor
     @Environment(\.meterThickness) private var customMeterThickness
     
-    let angle: Angle?
+    let angle: Angle
     let frame: CGSize
     
     var body: some View {
         let standardMeterThickness = frame.width / 10
         let strokeThickness = (customMeterThickness ?? standardMeterThickness) / 2
         
-        if let placement = angle {
-            ZStack {
-                if let indicatorColor {
-                    Circle()
-                        .stroke(lineWidth: strokeThickness)
-                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
-                        .rotationEffect(Angle(degrees: 126))
-                        .rotationEffect(placement, anchor: .center)
-                        .foregroundStyle(indicatorColor)
-                        #if !os(visionOS)
-                        .shadow(
-                            color: .black.opacity(renderingMode == .accented ? 0 : 0.2),
-                            radius: 2
-                        )
-                        #else
-                        .shadow(color: .black.opacity(0.2), radius: 2)
-                        #endif
-                    Circle()
-                        .strokeBorder(lineWidth: 1)
-                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness, stroke: true)
-                        .rotationEffect(Angle(degrees: 126))
-                        .rotationEffect(placement, anchor: .center)
-                        .foregroundStyle(.white.opacity(0.5))
-                } else {
-                    Circle()
-                        .stroke(lineWidth: strokeThickness)
-                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
-                        .rotationEffect(Angle(degrees: 126))
-                        .rotationEffect(placement, anchor: .center)
-                }
+        ZStack {
+            if let indicatorColor {
+                Circle()
+                    .stroke(lineWidth: strokeThickness)
+                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
+                    .rotationEffect(Angle(degrees: 126))
+                    .rotationEffect(angle, anchor: .center)
+                    .foregroundStyle(indicatorColor)
+                    #if !os(visionOS)
+                    .shadow(
+                        color: .black.opacity(renderingMode == .accented ? 0 : 0.2),
+                        radius: 2
+                    )
+                    #else
+                    .shadow(color: .black.opacity(0.2), radius: 2)
+                    #endif
+                Circle()
+                    .strokeBorder(lineWidth: 1)
+                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness, stroke: true)
+                    .rotationEffect(Angle(degrees: 126))
+                    .rotationEffect(angle, anchor: .center)
+                    .foregroundStyle(.white.opacity(0.5))
+            } else {
+                Circle()
+                    .stroke(lineWidth: strokeThickness)
+                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
+                    .rotationEffect(Angle(degrees: 126))
+                    .rotationEffect(angle, anchor: .center)
             }
         }
     }
@@ -61,36 +59,34 @@ struct LegacyGaugeIndicator: View {
     @Environment(\.indicatorColor) private var indicatorColor
     @Environment(\.meterThickness) private var customMeterThickness
     
-    let angle: Angle?
+    let angle: Angle
     let frame: CGSize
     
     var body: some View {
         let standardMeterThickness = frame.width / 10
         let strokeThickness = (customMeterThickness ?? standardMeterThickness) / 2
         
-        if let placement = angle {
-            ZStack {
-                if let indicatorColor {
-                    Circle()
-                        .stroke(lineWidth: strokeThickness)
-                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
-                        .rotationEffect(Angle(degrees: 126))
-                        .rotationEffect(placement, anchor: .center)
-                        .foregroundColor(indicatorColor)
-                        .shadow(color: .black.opacity(0.2), radius: 2)
-                    Circle()
-                        .strokeBorder(lineWidth: 1)
-                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness, stroke: true)
-                        .rotationEffect(Angle(degrees: 126))
-                        .rotationEffect(placement, anchor: .center)
-                        .foregroundColor(.white.opacity(0.5))
-                } else {
-                    Circle()
-                        .stroke(lineWidth: strokeThickness)
-                        .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
-                        .rotationEffect(Angle(degrees: 126))
-                        .rotationEffect(placement, anchor: .center)
-                }
+        ZStack {
+            if let indicatorColor {
+                Circle()
+                    .stroke(lineWidth: strokeThickness)
+                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
+                    .rotationEffect(Angle(degrees: 126))
+                    .rotationEffect(angle, anchor: .center)
+                    .foregroundColor(indicatorColor)
+                    .shadow(color: .black.opacity(0.2), radius: 2)
+                Circle()
+                    .strokeBorder(lineWidth: 1)
+                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness, stroke: true)
+                    .rotationEffect(Angle(degrees: 126))
+                    .rotationEffect(angle, anchor: .center)
+                    .foregroundColor(.white.opacity(0.5))
+            } else {
+                Circle()
+                    .stroke(lineWidth: strokeThickness)
+                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
+                    .rotationEffect(Angle(degrees: 126))
+                    .rotationEffect(angle, anchor: .center)
             }
         }
     }

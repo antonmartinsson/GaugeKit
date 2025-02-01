@@ -51,24 +51,34 @@ struct GaugeMeter : View {
             #if os(visionOS)
             MeterGradient(colors: colors, geometry: geometry)
                 .overlay {
-                    GaugeIndicator(angle: indicatorAngle, frame: geometry.size)
+                    if let indicatorAngle {
+                        GaugeIndicator(angle: indicatorAngle, frame: geometry.size)
+                    }
                 }
             #else
             if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *), indicatorColor != nil {
                 MeterGradient(colors: colors, geometry: geometry)
                     .overlay {
-                        GaugeIndicator(angle: indicatorAngle, frame: geometry.size)
+                        if let indicatorAngle {
+                            GaugeIndicator(angle: indicatorAngle, frame: geometry.size)
+                        }
                     }
             } else if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
                 MeterGradient(colors: colors, geometry: geometry)
                     .reverseMask {
-                        GaugeIndicator(angle: indicatorAngle, frame: geometry.size)
+                        if let indicatorAngle {
+                            GaugeIndicator(angle: indicatorAngle, frame: geometry.size)
+                        }
                     }
             } else if indicatorColor != nil {
-                LegacyMeterGradient(colors: colors, geometry: geometry)
-                    .overlay(
-                        LegacyGaugeIndicator(angle: indicatorAngle, frame: geometry.size)
-                    )
+                if let indicatorAngle {
+                    LegacyMeterGradient(colors: colors, geometry: geometry)
+                        .overlay(
+                            LegacyGaugeIndicator(angle: indicatorAngle, frame: geometry.size)
+                        )
+                } else {
+                    LegacyMeterGradient(colors: colors, geometry: geometry)
+                }
             } else {
                 LegacyMeterGradient(colors: colors, geometry: geometry)
             }

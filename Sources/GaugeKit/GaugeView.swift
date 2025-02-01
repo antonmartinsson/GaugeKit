@@ -4,7 +4,6 @@
 //
 //  Created by Anton Martinsson on 2021-06-19.
 //
-//  A Gauge similar to the gauges used for some Apple Watch complications.
 
 import SwiftUI
 
@@ -20,6 +19,8 @@ import SwiftUI
     - additionalInfo: A struct containing three (optional) strings to display when the user taps on the gauge.
  */
 public struct GaugeView : View {
+    @Environment(\.labelsHidden) private var labelsHidden
+    
     @State private var flipped: Bool = false
     
     let title: String?
@@ -65,7 +66,9 @@ public struct GaugeView : View {
             ZStack {
                 ZStack {
                     GaugeMeter(value: value, maxValue: maxValue, colors: colors)
-                    GaugeLabelStack(value: value, title: title)
+                    if !labelsHidden {
+                        GaugeLabelStack(value: value, title: title)
+                    }
                 }
                 .rotation3DEffect(flipAngle, axis: (x: 0, y: 1, z: 0))
                 .opacity(flipped ? 0.05 : 1)
