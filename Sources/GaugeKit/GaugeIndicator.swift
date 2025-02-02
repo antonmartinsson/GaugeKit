@@ -26,7 +26,7 @@ struct GaugeIndicator: View {
             if let indicatorColor {
                 Circle()
                     .stroke(lineWidth: strokeThickness)
-                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
+                    .scaleAndPlaceIndicator(in: frame, thickness: strokeThickness)
                     .rotationEffect(Angle(degrees: 126))
                     .rotationEffect(angle, anchor: .center)
                     .foregroundStyle(indicatorColor)
@@ -40,14 +40,14 @@ struct GaugeIndicator: View {
                     #endif
                 Circle()
                     .strokeBorder(lineWidth: 1)
-                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness, stroke: true)
+                    .scaleAndPlaceIndicator(in: frame, thickness: strokeThickness, stroke: true)
                     .rotationEffect(Angle(degrees: 126))
                     .rotationEffect(angle, anchor: .center)
                     .foregroundStyle(.white.opacity(0.5))
             } else {
                 Circle()
                     .stroke(lineWidth: strokeThickness)
-                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
+                    .scaleAndPlaceIndicator(in: frame, thickness: strokeThickness)
                     .rotationEffect(Angle(degrees: 126))
                     .rotationEffect(angle, anchor: .center)
             }
@@ -70,21 +70,21 @@ struct LegacyGaugeIndicator: View {
             if let indicatorColor {
                 Circle()
                     .stroke(lineWidth: strokeThickness)
-                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
+                    .scaleAndPlaceIndicator(in: frame, thickness: strokeThickness)
                     .rotationEffect(Angle(degrees: 126))
                     .rotationEffect(angle, anchor: .center)
                     .foregroundColor(indicatorColor)
                     .shadow(color: .black.opacity(0.2), radius: 2)
                 Circle()
                     .strokeBorder(lineWidth: 1)
-                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness, stroke: true)
+                    .scaleAndPlaceIndicator(in: frame, thickness: strokeThickness, stroke: true)
                     .rotationEffect(Angle(degrees: 126))
                     .rotationEffect(angle, anchor: .center)
                     .foregroundColor(.white.opacity(0.5))
             } else {
                 Circle()
                     .stroke(lineWidth: strokeThickness)
-                    .scaleAndPlaceIndicator(in: frame, standardThickness: strokeThickness)
+                    .scaleAndPlaceIndicator(in: frame, thickness: strokeThickness)
                     .rotationEffect(Angle(degrees: 126))
                     .rotationEffect(angle, anchor: .center)
             }
@@ -99,8 +99,10 @@ private struct IndicatorPlacement: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .padding(stroke ? thickness / 2 : 0)
-            .frame(width: thickness * 1.75, height: thickness * 1.75)
+            .frame(
+                width: thickness * (stroke ? 2.75 : 1.75),
+                height: thickness * (stroke ? 2.75 : 1.75)
+            )
             .offset(x: (frame.width / 2) - (thickness))
     }
 }
@@ -108,11 +110,11 @@ private struct IndicatorPlacement: ViewModifier {
 private extension View {
     func scaleAndPlaceIndicator(
         in frame: CGSize,
-        standardThickness: Double,
+        thickness: Double,
         stroke: Bool = false
     ) -> some View {
         self.modifier(
-            IndicatorPlacement(frame: frame, thickness: standardThickness, stroke: stroke)
+            IndicatorPlacement(frame: frame, thickness: thickness, stroke: stroke)
         )
     }
 }
