@@ -77,7 +77,6 @@ public struct GaugeView : View {
                     GaugeBackView(flipped: $flipped, additionalInfo: info)
                 }
             }
-            .offset(y: geometry.size.height * 0.05)
             .onTapGesture {
                 if additionalInfo != nil {
                     withAnimation {
