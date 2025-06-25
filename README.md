@@ -50,7 +50,7 @@ GaugeView(colors: [.red, .orange, .yellow, .green])
 
 ## Modifiers
 
-Should you have the need to customize some of the elements in the Gauge, there are some view modifiers to help you do so. 
+Should you have the need to customize some of the elements in the Gauge, there are several view modifiers to help you do so. 
 
 ### Indicator color
 
@@ -66,6 +66,24 @@ To add a shadow to the gauge meter (not including the text within the gauge), us
 
 ```swift
 .gaugeMeterShadow(color: .black.opacity(0.2), radius: 5)
+```
+
+### Thickness
+
+By default, the thickness of the gauge meter depends on the size of the container you put it in. To adjust it manually, you can use `.gaugeMeterThickness`.
+
+```swift
+.gaugeMeterThickness(30)
+```
+
+Please be aware that the look of the gauge can be broken using this modifier, if you scale it beyond the bounds of the view it inhabits. My recommendation is to use it carefully and seldomly.
+
+### Label visibility
+
+To hide the stack of labels within the gauge, use `.labelStackHidden`.
+
+```swift
+.labelStackHidden()
 ```
 
 ---
@@ -97,7 +115,7 @@ You can control the tint of this back view with the following modifier.
 
 ## Roadmap
 
-While I don't have many concrete plans for GaugeKit at the moment, I do plan to fiddle around with it and improve it best I can from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here [on Twitter](https://x.com/ntonmartinsson).
+While I don't spend a ton of time on GaugeKit on a day to day basis, I do plan to fiddle around with it and improve it best I can from time to time. If you have any feature requests or ideas you think I should take into consideration, please feel free to contact me here [on Twitter](https://x.com/ntonmartinsson).
 
 ## Apps using GaugeKit
 
@@ -106,6 +124,8 @@ While I don't have many concrete plans for GaugeKit at the moment, I do plan to 
 [MecaTest](https://apps.apple.com/se/app/mecatest/id6447468608?l=en-GB), by Jean-François Denniel.
 
 [Conal](https://apps.apple.com/se/app/conal/id6450399826?l=en-GB), by [@ConalApp](https://twitter.com/conalapp?s=21&t=cNLR7J7k2hUXZAkqBszDEw).
+
+[iQTrack](https://www.ufosoft.cz/en/iqtrack-app/), by UFOSOFT.
 
 ## Using GaugeKit in your project?
 

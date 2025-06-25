@@ -7,19 +7,11 @@
 
 import SwiftUI
 
-/**
- A simple vertical stack of labels to be stashed within the gauge view.
- 
- - Parameters:
-    - geometry: The frame of the container the label stack is contained within.
-    - value: An integer between 0 and 100 displayed inside the gauge.
-    - title: A title to be displayed below the value.
- */
 struct GaugeLabelStack: View {
     @Environment(\.valueLabelColor) private var valueColor
     @Environment(\.titleLabelColor) private var titleColor
     
-    let value: Int?
+    let value: Double?
     let title: String?
     
     private func smallestDimension(for geometry: GeometryProxy) -> Double {
@@ -80,11 +72,11 @@ struct GaugeLabelStack: View {
     }
     
     private struct ValueView: View {
-        let value: Int
+        let value: Double
         let fontSize: Double
         
         var body: some View {
-            Text("\(value)")
+            Text(value.string(withMaxNumberOfDecimals: 1))
               .fontWeight(.bold)
               .font(.system(size: fontSize))
               .lineLimit(1)

@@ -10,27 +10,26 @@ import SwiftUI
 import WidgetKit
 #endif
 
-/**
- The circular meter of the gauge view.
- 
- - Parameters:
- - value: An integer between 0 and 100 displayed inside the gauge, which also determines the position of the gauge's indicator.
- - colors: The colors that should be used in the gradient that wipes across the gauge.
- - maxValue: The value the gauge should top out at.
- */
 struct GaugeMeter : View {
     @Environment(\.meterShadow) private var shadow
     @Environment(\.indicatorColor) private var indicatorColor
     
-    let value: Int?
+    let value: Double?
     let colors: [Color]
-    let maxValue: Int?
+    let maxValue: Double?
     
     init(value: Int? = nil, maxValue: Int? = nil, colors: [Color]) {
+        self.value = value.map(Double.init)
+        let defaultMax = (value != nil && maxValue == nil)
+        self.maxValue = defaultMax ? 100 : maxValue.map(Double.init)
         self.colors = colors
+    }
+    
+    init(value: Double? = nil, maxValue: Double? = nil, colors: [Color]) {
         self.value = value
-        let defaultMaxValue = maxValue == nil && value != nil
-        self.maxValue = defaultMaxValue ? 100 : maxValue
+        let defaultMax = (value != nil && maxValue == nil)
+        self.maxValue = defaultMax ? 100 : maxValue
+        self.colors = colors
     }
     
     private var indicatorAngle: Angle? {
@@ -52,24 +51,34 @@ struct GaugeMeter : View {
             #if os(visionOS)
             MeterGradient(colors: colors, geometry: geometry)
                 .overlay {
-                    GaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                    if let indicatorAngle {
+                        GaugeIndicator(angle: indicatorAngle, frame: geometry.size)
+                    }
                 }
             #else
             if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *), indicatorColor != nil {
                 MeterGradient(colors: colors, geometry: geometry)
                     .overlay {
-                        GaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                        if let indicatorAngle {
+                            GaugeIndicator(angle: indicatorAngle, frame: geometry.size)
+                        }
                     }
             } else if #available(iOS 16.0, macOS 13.0, watchOS 9.0, *) {
                 MeterGradient(colors: colors, geometry: geometry)
                     .reverseMask {
-                        GaugeIndicator(angle: indicatorAngle, size: geometry.size)
+                        if let indicatorAngle {
+                            GaugeIndicator(angle: indicatorAngle, frame: geometry.size)
+                        }
                     }
             } else if indicatorColor != nil {
-                LegacyMeterGradient(colors: colors, geometry: geometry)
-                    .overlay(
-                        LegacyGaugeIndicator(angle: indicatorAngle, size: geometry.size)
-                    )
+                if let indicatorAngle {
+                    LegacyMeterGradient(colors: colors, geometry: geometry)
+                        .overlay(
+                            LegacyGaugeIndicator(angle: indicatorAngle, frame: geometry.size)
+                        )
+                } else {
+                    LegacyMeterGradient(colors: colors, geometry: geometry)
+                }
             } else {
                 LegacyMeterGradient(colors: colors, geometry: geometry)
             }
@@ -86,6 +95,8 @@ struct GaugeMeter : View {
     
     @available(iOS 16.0, macOS 13.0, watchOS 9.0, *)
     private struct MeterGradient: View {
+        @Environment(\.meterThickness) private var thickness
+        
         let colors: [Color]
         let geometry: GeometryProxy
         
@@ -105,7 +116,7 @@ struct GaugeMeter : View {
         }
         
         private func meterThickness(for geometry: GeometryProxy) -> Double {
-            (geometry.size.width / 10)
+            thickness ?? (geometry.size.width / 10)
         }
         
         var body: some View {
@@ -130,6 +141,8 @@ struct GaugeMeter : View {
     }
     
     private struct LegacyMeterGradient: View {
+        @Environment(\.meterThickness) private var thickness
+        
         let colors: [Color]
         let geometry: GeometryProxy
         
@@ -149,7 +162,7 @@ struct GaugeMeter : View {
         }
         
         private func meterThickness(for geometry: GeometryProxy) -> Double {
-            (geometry.size.width / 10)
+            thickness ?? (geometry.size.width / 10)
         }
         
         var body: some View {
@@ -171,14 +184,6 @@ struct GaugeMeter : View {
     }
 }
 
-/**
- A circular view used as a mask over the angular gradient of the GaugeMeter.
- 
- - Parameters:
- - trimStart: A double between 0 and 1 that determines where the meter should begin.
- - trimEnd: A double between 0 and 1 that determines where the meter should end.
- - meterThickness: The thickness of the gauge meter.
- */
 private struct GaugeMask: View {
     let trimStart: Double
     let trimEnd: Double
