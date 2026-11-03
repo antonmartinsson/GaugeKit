@@ -21,11 +21,7 @@ extension GaugeView {
         - colors: An array of Color instances to create the gauge's background gradient from..
      */
     public init(value: Int?, colors: [Color]) {
-        self.title = nil
-        self.value = value.map(Double.init)
-        self.maxValue = 100
-        self.colors = colors
-        self.additionalInfo = nil
+        self.init(value: value, maxValue: 100, colors: colors)
     }
     
     /**
@@ -38,11 +34,7 @@ extension GaugeView {
         - colors: An array of Color instances to create the gauge's background gradient from..
      */
     public init(title: String?, value: Int?, colors: [Color]) {
-        self.title = title
-        self.value = value.map(Double.init)
-        self.maxValue = 100
-        self.colors = colors
-        self.additionalInfo = nil
+        self.init(title: title, value: value, maxValue: 100, colors: colors)
     }
     
     /**
@@ -57,11 +49,7 @@ extension GaugeView {
         - additionalInfo: A struct that contains three optional strings to display on the back of the gauge.
      */
     public init(title: String?, value: Int?, colors: [Color], additionalInfo: GaugeAdditionalInfo) {
-        self.title = title
-        self.value = value.map(Double.init)
-        self.maxValue = 100
-        self.colors = colors
-        self.additionalInfo = additionalInfo
+        self.init(title: title, value: value, maxValue: 100, colors: colors, additionalInfo: additionalInfo)
     }
     
     /**
@@ -71,10 +59,6 @@ extension GaugeView {
         - colors: An array of Color instances to create the gauge's background gradient from..
      */
     public init(colors: [Color]) {
-        self.title = nil
-        self.value = nil
-        self.maxValue = 0
-        self.colors = colors
-        self.additionalInfo = nil
+        self.init(maxValue: 0, colors: colors)
     }
 }
